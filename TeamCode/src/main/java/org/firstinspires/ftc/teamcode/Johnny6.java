@@ -225,7 +225,7 @@ public class Johnny6 {
 
 
                 imu.initialize(parameters);
-
+            //these are for Trebuchet
                 lockServo = hwMap.servo.get( "lockServo" );
                 lockSensor=hwMap.touchSensor.get("lockSensor");
 
@@ -356,7 +356,7 @@ public class Johnny6 {
     //Set arm motor to the given power here
     //@param power the power to send to the arm motor
 
-    public void armExtend() { suspendMotor.setPower(1); }
+    /*public void armExtend() { suspendMotor.setPower(1); }
 
     public void armDetract() { suspendMotor.setPower(-1); }
 
@@ -383,7 +383,12 @@ public class Johnny6 {
 
     public void propUp(){ armPropServo.setPosition(0.5);}
 
-    public void propSet(){armPropServo.setPosition(0.46);}
+    public void propSet(){armPropServo.setPosition(0.46);}*/
+
+    //Trebuchet servos and other thingies
+    public void unLock() { lockServo.setPosition(1); }
+
+    public void Locked() { lockServo.setPosition(0); }
 
     //public void turnRightDegrees( double degrees, double speed ) {
 

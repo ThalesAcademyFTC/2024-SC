@@ -132,6 +132,7 @@ public class Teleop extends OpMode {
             lbumperProcessed = true;
         }
 
+
         //code for opening the claw
         /*if (gamepad2.right_bumper) {
             johnny6.openClaw();
