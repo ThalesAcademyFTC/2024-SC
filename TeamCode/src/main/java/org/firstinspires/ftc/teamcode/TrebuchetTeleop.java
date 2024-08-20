@@ -8,6 +8,9 @@ public class TrebuchetTeleop extends OpMode {
     boolean unLocked=false;
     boolean rBumperPressed=false;
     boolean rBumperProcessed=false;
+    boolean sensorPressed=false;
+    boolean sensorNotPressed=false;
+    boolean sensorProcessed=false;
 
     TouchSensor touch;
 
@@ -49,10 +52,13 @@ public class TrebuchetTeleop extends OpMode {
         }
 
         if(touch.isPressed()) {
-            unLocked=false;
-        }
-        else {
-            unLocked=true;
+            sensorPressed=true;
+            if (sensorPressed){
+                trebuchet6.Locked();
+            }
+            else if(gamepad1.right_bumper&&!sensorPressed){
+                trebuchet6.unLock();
+            }
         }
 
     }
