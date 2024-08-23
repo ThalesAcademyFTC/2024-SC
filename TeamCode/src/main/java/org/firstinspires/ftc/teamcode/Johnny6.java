@@ -226,6 +226,7 @@ public class Johnny6 {
                 lockServo = hwMap.servo.get( "lockServo" );
                 lockSensor=hwMap.touchSensor.get("lockSensor");
 
+                break;
 
             default:
 
@@ -327,7 +328,20 @@ public class Johnny6 {
                 motorBackRight.setPower( backRightPower );
 
                 break;
+            case TREBUCHET6:
+                denominator=Math.max(Math.abs(y)+Math.abs(x)+Math.abs(turn),1);
 
+                //compute the values for power of each motor
+                // make -y because if it was on front, it would be backwards
+
+                backLeftPower=(-y-x)/denominator;
+                backRightPower=(-y+x)/denominator;
+
+                //assign power to motor
+                motorFrontLeft.setPower(backLeftPower);
+                motorFrontRight.setPower(backRightPower);
+
+                break;
         }
     }
 
@@ -385,10 +399,12 @@ public class Johnny6 {
     //Trebuchet servos and other thingies
     public void unLock() { lockServo.setPosition(1); }
 
-    public void Locked() { lockServo.setPosition(0); }
+    public void Locked() { lockServo.setPosition(0.5); }
 
     //public void turnRightDegrees( double degrees, double speed ) {
-
+    public boolean isLockSensorPressed() {
+        return lockSensor.isPressed();
+    }
     }
 
 

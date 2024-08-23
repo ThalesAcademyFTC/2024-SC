@@ -12,10 +12,9 @@ public class TrebuchetTeleop extends OpMode {
     boolean sensorNotPressed=false;
     boolean sensorProcessed=false;
 
-    TouchSensor touch;
-
     @Override
-    public void init() { trebuchet6=new Johnny6( this, Johnny6.Drivetrain.TREBUCHET6); }
+    public void init() { trebuchet6=new Johnny6( this, Johnny6.Drivetrain.TREBUCHET6);
+    trebuchet6.unLock();}
 
     public void loop(){
         double y=-gamepad1.left_stick_y;
@@ -29,7 +28,7 @@ public class TrebuchetTeleop extends OpMode {
             x=-x;
         }
 
-        double turn=gamepad1.right_stick_x/2;
+        double turn=gamepad1.left_stick_x/2;
         trebuchet6.move(x,y,turn);
 
 
@@ -51,14 +50,12 @@ public class TrebuchetTeleop extends OpMode {
             rBumperProcessed=true;
         }
 
-        if(touch.isPressed()) {
+        if(trebuchet6.isLockSensorPressed() && !sensorPressed) {
             sensorPressed=true;
             if (sensorPressed){
                 trebuchet6.Locked();
             }
-            else if(gamepad1.right_bumper&&!sensorPressed){
-                trebuchet6.unLock();
-            }
+
         }
 
     }
