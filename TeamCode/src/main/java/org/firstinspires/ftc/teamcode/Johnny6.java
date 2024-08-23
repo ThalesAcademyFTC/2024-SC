@@ -148,10 +148,7 @@ public class Johnny6 {
 
             case MECHANUM:
 
-                //Setup motors that are used for the drivetrain
-                motorFrontLeft = hwMap.dcMotor.get("motorFrontLeft");
-                motorFrontRight = hwMap.dcMotor.get("motorFrontRight");
-                motorBackLeft = hwMap.dcMotor.get("motorBackLeft");
+                //Setup motors that are used for the drivetrain);
                 motorBackRight = hwMap.dcMotor.get("motorBackRight");
 
                 //Reverse motors

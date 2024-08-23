@@ -51,7 +51,7 @@ public class Teleop extends OpMode {
         //if(gamepad1.atRest()) johnny6.rest();
 
         //code for arm extension
-        if (gamepad2.dpad_up) {
+        /*if (gamepad2.dpad_up) {
             johnny6.armExtend();
         } else if (gamepad2.dpad_down) {
             johnny6.armDetract();
