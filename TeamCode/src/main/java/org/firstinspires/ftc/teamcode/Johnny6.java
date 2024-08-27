@@ -49,7 +49,7 @@ public class Johnny6 {
     public DcMotor rotationMotor;
 
     //Comp robot servos
-    public Servo flickServo, clawServo,armPropServo;
+    public Servo flickServo, clawServo, armPropServo;
 
     //Outreach robot servos
     public Servo lockServo;
@@ -69,7 +69,7 @@ public class Johnny6 {
 
     static final double X_INCH_TICKS = 40;
 
-    public Johnny6 (OpMode opmode, Drivetrain drivetrain) {
+    public Johnny6(OpMode opmode, Drivetrain drivetrain) {
 
         this.hwMap = opmode.hardwareMap;
 
@@ -109,7 +109,7 @@ public class Johnny6 {
 
         //This switch statement is used to choose which drivetrain
         //depending on the drive variable
-        switch ( drive ) {
+        switch (drive) {
 
             case JOHNNY6:
 
@@ -119,16 +119,14 @@ public class Johnny6 {
                 motorBackRight = hwMap.dcMotor.get("motorBackRight");
 
 
-
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-                imu=hwMap.get(IMU.class,"imu");
+                imu = hwMap.get(IMU.class, "imu");
 
 
-
-                parameters=new IMU.Parameters(new RevHubOrientationOnRobot(
+                parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                         RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
 
@@ -138,12 +136,12 @@ public class Johnny6 {
                 //swebcamName = hwMap.get(WebcamName.class, "eyeofjohnny6");
 
                 //Add arm mechanism hardware devices here
-                suspendMotor = hwMap.dcMotor.get( "suspendMotor" );
-                launchMotor = hwMap.dcMotor.get( "launchMotor" );
-                rotationMotor = hwMap.dcMotor.get( "rotationMotor" );
-                flickServo = hwMap.servo.get( "flickServo" );
-                clawServo = hwMap.servo.get( "clawServo" );
-                armPropServo=hwMap.servo.get("armPropServo");
+                suspendMotor = hwMap.dcMotor.get("suspendMotor");
+                launchMotor = hwMap.dcMotor.get("launchMotor");
+                rotationMotor = hwMap.dcMotor.get("rotationMotor");
+                flickServo = hwMap.servo.get("flickServo");
+                clawServo = hwMap.servo.get("clawServo");
+                armPropServo = hwMap.servo.get("armPropServo");
                 break;
 
             case MECHANUM:
@@ -157,7 +155,7 @@ public class Johnny6 {
 
                 //Here would go any additional hardware devices for the robot
 
-                imu = hwMap.get( IMU.class, "imu");
+                imu = hwMap.get(IMU.class, "imu");
 
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
@@ -171,7 +169,7 @@ public class Johnny6 {
 
                 //add arm mechanisms and servo thingys
 
-                allDriveMotors=new DcMotor[]{motorFrontLeft,motorFrontRight,motorBackLeft,motorBackRight};
+                allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
                 break;
 
 
@@ -191,7 +189,7 @@ public class Johnny6 {
 
                 //Here would go any additional hardware devices for the robot
 
-                imu = hwMap.get( IMU.class, "imu");
+                imu = hwMap.get(IMU.class, "imu");
 
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
@@ -201,8 +199,8 @@ public class Johnny6 {
 
 
                 //camera setup!
-                webcamName=hwMap.get(WebcamName.class,"eyeofjohnny6");
-                allDriveMotors=new DcMotor[]{motorFrontLeft,motorFrontRight,motorBackLeft,motorBackRight};
+                webcamName = hwMap.get(WebcamName.class, "eyeofjohnny6");
+                allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
                 break;
 
@@ -214,17 +212,17 @@ public class Johnny6 {
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-                imu=hwMap.get(IMU.class,"imu");
+                imu = hwMap.get(IMU.class, "imu");
 
-                parameters=new IMU.Parameters(new RevHubOrientationOnRobot(
+                parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                         RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
 
 
                 imu.initialize(parameters);
-            //these are for Trebuchet
-                lockServo = hwMap.servo.get( "lockServo" );
-                lockSensor=hwMap.touchSensor.get("lockSensor");
+                //these are for Trebuchet
+                lockServo = hwMap.servo.get("lockServo");
+                lockSensor = hwMap.touchSensor.get("lockSensor");
 
                 break;
 
@@ -239,13 +237,13 @@ public class Johnny6 {
 
     //set powers for motors and positions for servos
     public void rest() {
-        motorBackLeft.setPower( 0 );
-        motorBackRight.setPower( 0 );
-        motorFrontLeft.setPower( 0 );
-        motorFrontRight.setPower( 0 );
-        suspendMotor.setPower( 0 );
-        launchMotor.setPower( 0 );
-        rotationMotor.setPower( 0 );
+        motorBackLeft.setPower(0);
+        motorBackRight.setPower(0);
+        motorFrontLeft.setPower(0);
+        motorFrontRight.setPower(0);
+        suspendMotor.setPower(0);
+        launchMotor.setPower(0);
+        rotationMotor.setPower(0);
 
     }
 
@@ -256,9 +254,9 @@ public class Johnny6 {
     @param turn the turn speed value
      */
 
-    public void move( double x, double y, double turn ) {
+    public void move(double x, double y, double turn) {
 
-        switch ( drive ) {
+        switch (drive) {
 
             case JOHNNY6:
                 //Denominator is the larget motor power (absolute value) or 1
@@ -267,21 +265,21 @@ public class Johnny6 {
                 double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
                 //Compute values for the power of each motor
-                double frontLeftPower = ( y + x + turn) / denominator;
-                double backLeftPower = ( y - x + turn) / denominator;
-                double frontRightPower = ( y - x - turn) / denominator;
-                double backRightPower = ( y + x - turn) / denominator;
+                double frontLeftPower = (y + x + turn) / denominator;
+                double backLeftPower = (y - x + turn) / denominator;
+                double frontRightPower = (y - x - turn) / denominator;
+                double backRightPower = (y + x - turn) / denominator;
 
-                telem.addLine( "frontLeft: " + frontLeftPower);
-                telem.addLine( "frontRight: " + frontRightPower);
-                telem.addLine( "backLeft: " + backLeftPower);
-                telem.addLine( "backRight: " + backRightPower);
+                telem.addLine("frontLeft: " + frontLeftPower);
+                telem.addLine("frontRight: " + frontRightPower);
+                telem.addLine("backLeft: " + backLeftPower);
+                telem.addLine("backRight: " + backRightPower);
 
                 //Assign that motor power to each motor
-                motorFrontLeft.setPower( frontLeftPower );
-                motorBackLeft.setPower( backLeftPower );
-                motorFrontRight.setPower( frontRightPower );
-                motorBackRight.setPower( backRightPower );
+                motorFrontLeft.setPower(frontLeftPower);
+                motorBackLeft.setPower(backLeftPower);
+                motorFrontRight.setPower(frontRightPower);
+                motorBackRight.setPower(backRightPower);
 
                 break;
 
@@ -293,16 +291,16 @@ public class Johnny6 {
                 denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
                 //Compute values for the power of each motor
-                frontLeftPower = ( y + x + turn) / denominator;
-                backLeftPower = ( y - x + turn) / denominator;
-                frontRightPower = ( y - x - turn) / denominator;
-                backRightPower = ( y + x - turn) / denominator;
+                frontLeftPower = (y + x + turn) / denominator;
+                backLeftPower = (y - x + turn) / denominator;
+                frontRightPower = (y - x - turn) / denominator;
+                backRightPower = (y + x - turn) / denominator;
 
                 //Assign that motor power to each motor
-                motorFrontLeft.setPower( frontLeftPower );
-                motorBackLeft.setPower( backLeftPower );
-                motorFrontRight.setPower( frontRightPower );
-                motorBackRight.setPower( backRightPower );
+                motorFrontLeft.setPower(frontLeftPower);
+                motorBackLeft.setPower(backLeftPower);
+                motorFrontRight.setPower(frontRightPower);
+                motorBackRight.setPower(backRightPower);
 
                 break;
 
@@ -316,26 +314,26 @@ public class Johnny6 {
                 denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
                 //Compute values for the power of each motor
-                frontLeftPower = ( y + x + turn) / denominator;
-                backLeftPower = ( y - x + turn) / denominator;
-                frontRightPower = ( y - x - turn) / denominator;
-                backRightPower = ( y + x - turn) / denominator;
+                frontLeftPower = (y + x + turn) / denominator;
+                backLeftPower = (y - x + turn) / denominator;
+                frontRightPower = (y - x - turn) / denominator;
+                backRightPower = (y + x - turn) / denominator;
 
                 //Assign that motor power to each motor
-                motorFrontLeft.setPower( frontLeftPower );
-                motorBackLeft.setPower( backLeftPower );
-                motorFrontRight.setPower( frontRightPower );
-                motorBackRight.setPower( backRightPower );
+                motorFrontLeft.setPower(frontLeftPower);
+                motorBackLeft.setPower(backLeftPower);
+                motorFrontRight.setPower(frontRightPower);
+                motorBackRight.setPower(backRightPower);
 
                 break;
             case TREBUCHET6:
-                denominator=Math.max(Math.abs(y)+Math.abs(x)+Math.abs(turn),1);
+                denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(turn), 1);
 
                 //compute the values for power of each motor
                 // make -y because if it was on front, it would be backwards
 
-                backLeftPower=(-y-x)/denominator;
-                backRightPower=(-y+x)/denominator;
+                backLeftPower = (-y - x) / denominator;
+                backRightPower = (-y + x) / denominator;
 
                 //assign power to motor
                 motorFrontLeft.setPower(backLeftPower);
@@ -345,23 +343,37 @@ public class Johnny6 {
         }
     }
 
-    public void moveLeft( double speed ) { move( -speed, 0, 0 ); }
+    public void moveLeft(double speed) {
+        move(-speed, 0, 0);
+    }
 
-    public void moveRight( double speed ) { move( speed, 0, 0 ); }
+    public void moveRight(double speed) {
+        move(speed, 0, 0);
+    }
 
-    public void moveForward( double speed ) { move( speed, 0, 0 ); }
+    public void moveForward(double speed) {
+        move(speed, 0, 0);
+    }
 
-    public void moveBackward( double speed ) { move( 0, speed, 0 ); }
+    public void moveBackward(double speed) {
+        move(0, speed, 0);
+    }
 
-    public void turnLeft( double speed ) { move( 0, 0, -speed ); }
+    public void turnLeft(double speed) {
+        move(0, 0, -speed);
+    }
 
-    public void turnRight( double speed ) { move( 0, 0, speed ); }
+    public void turnRight(double speed) {
+        move(0, 0, speed);
+    }
 
 
-    public void resetYaw() { imu.resetYaw(); }
+    public void resetYaw() {
+        imu.resetYaw();
+    }
 
     public double getHeading() {
-        return imu.getRobotYawPitchRollAngles().getYaw( AngleUnit.DEGREES);
+        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
     }
 
     //Set arm motor to the given power here
@@ -397,21 +409,97 @@ public class Johnny6 {
     public void propSet(){armPropServo.setPosition(0.46);}*/
 
     //Trebuchet servos and other thingies
-    public void unLock() { lockServo.setPosition(1); }
+    public void unLock() {
+        lockServo.setPosition(0.5);
+    }
 
-    public void Locked() { lockServo.setPosition(0.5); }
+    public void Locked() {
+        lockServo.setPosition(1);
+    }
 
-    //public void turnRightDegrees( double degrees, double speed ) {
     public boolean isLockSensorPressed() {
         return lockSensor.isPressed();
     }
+
+
+    public void moveForwardInches(double inches, double speed) {
+
+        //Converts to integer by rounding. CASTS to int after rounding.
+        int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
+
+        resetDriveEncoders();
+
+        for (DcMotor x : allDriveMotors) {
+
+            x.setTargetPosition(tickTarget);
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        move(0, speed, 0);
+
+        waitForMotors();
+
+        resetDriveEncoders();
+
+    }
+
+    public void moveBakwardInches(double inches, double speed) {
+
+        moveForwardInches(-inches, -speed);
+
+    }
+
+    public void moveRightInches(double inches, double speed) {
+
+        int tickTarget = (int) Math.round(inches * X_INCH_TICKS);
+
+        resetDriveEncoders();
+
+        for (DcMotor x : allDriveMotors) {
+
+            x.setTargetPosition(tickTarget);
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        move(speed, 0, 0);
+
+        waitForMotors();
+
+        resetDriveEncoders();
+
+    }
+
+    public void moveLeftInches(double inches, double speed) {
+
+        moveRightInches(-inches, -speed);
+
+    }
+
+    public void waitForMotors() {
+        boolean finished = false;
+        while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
+            for (DcMotor x : allDriveMotors) {
+                if (x.getCurrentPosition() >= x.getTargetPosition() = 2 || x.getCurrentPosition() <= x.getTargetPosition() - 2) {
+                    telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
+                    telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
+                    telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
+                    telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
+                    telem.update();
+                } else {
+                    finished = true;
+                }
+            }
+        }
     }
 
 
-    /*
-    public void turnRightDegrees(double degrees, double speed){
-        double target= getHeading()+degrees;
-
-    }*/
-
-
+    private void resetDriveEncoders() {
+        for (DcMotor x: allDriveMotors) {
+            x.setPower(0);
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+}

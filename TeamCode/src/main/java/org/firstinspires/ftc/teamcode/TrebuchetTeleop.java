@@ -17,10 +17,13 @@ public class TrebuchetTeleop extends OpMode {
     trebuchet6.unLock();}
 
     public void loop(){
+
+        //Movement code
         double y=-gamepad1.left_stick_y;
         double x=gamepad1.left_stick_x;
 
         y*=y;
+        x*=x;
         if(gamepad1.left_stick_y>0){
             y=-y;
         }
@@ -29,9 +32,9 @@ public class TrebuchetTeleop extends OpMode {
         }
 
         double turn=gamepad1.left_stick_x/2;
-        trebuchet6.move(x,y,turn);
+        trebuchet6.move(-x,y,0);
 
-
+        //Code for trebuchet launch
         if(gamepad1.right_bumper){
             rBumperPressed=true;
         }else{
@@ -46,10 +49,12 @@ public class TrebuchetTeleop extends OpMode {
             else{
                 trebuchet6.unLock();
                 unLocked=true;
+                sensorPressed=false;
             }
             rBumperProcessed=true;
         }
 
+        //codings for the stupid sensor we cant figure out
         if(trebuchet6.isLockSensorPressed() && !sensorPressed) {
             sensorPressed=true;
             if (sensorPressed){
