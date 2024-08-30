@@ -480,8 +480,7 @@ public class Johnny6 {
     public void waitForMotors() {
         boolean finished = false;
         while (auton.opModeIsActive() && !finished && !auton.isStopRequested()) {
-            for (DcMotor x : allDriveMotors) {
-                if (x.getCurrentPosition() >= x.getTargetPosition() = 2 || x.getCurrentPosition() <= x.getTargetPosition() - 2) {
+                if (motorFrontLeft.isBusy() || motorBackLeft.isBusy() || motorFrontRight.isBusy() || motorBackRight.isBusy()) {
                     telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
                     telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
                     telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
@@ -490,7 +489,6 @@ public class Johnny6 {
                 } else {
                     finished = true;
                 }
-            }
         }
     }
 
