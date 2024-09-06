@@ -35,24 +35,40 @@ public class TrebuchetTeleop extends OpMode {
         trebuchet6.move(-x,y,0); */
 
         //Moves the trebuchet forward
-        if(gamepad1.left_stick_y<0){
+        if(gamepad1.left_stick_y>0){
             trebuchet6.motorFrontRight.setPower(1);
             trebuchet6.motorFrontLeft.setPower(1);
         }
+        else {
+            trebuchet6.motorFrontRight.setPower(0);
+            trebuchet6.motorFrontLeft.setPower(0);
+        }
         //Moves the trebuchet backward
-        if(gamepad1.left_stick_y>0){
+        if(gamepad1.left_stick_y<0){
             trebuchet6.motorFrontRight.setPower(-1);
             trebuchet6.motorFrontLeft.setPower(-1);
+        }
+        else {
+            trebuchet6.motorFrontRight.setPower(0);
+            trebuchet6.motorFrontLeft.setPower(0);
         }
         //Turns the trebuchet to the right
         if(gamepad1.right_stick_x>0){
             trebuchet6.motorFrontRight.setPower(-1);
             trebuchet6.motorFrontLeft.setPower(1);
         }
+        else {
+            trebuchet6.motorFrontRight.setPower(0);
+            trebuchet6.motorFrontLeft.setPower(0);
+        }
         //Turns the trebuchet to the left
         if(gamepad1.right_stick_x<0){
             trebuchet6.motorFrontRight.setPower(1);
             trebuchet6.motorFrontLeft.setPower(-1);
+        }
+        else {
+            trebuchet6.motorFrontRight.setPower(0);
+            trebuchet6.motorFrontLeft.setPower(0);
         }
 
 
