@@ -376,37 +376,6 @@ public class Johnny6 {
         return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
     }
 
-    //Set arm motor to the given power here
-    //@param power the power to send to the arm motor
-
-    /*public void armExtend() { suspendMotor.setPower(1); }
-
-    public void armDetract() { suspendMotor.setPower(-1); }
-
-    public void droneLaunch() { launchMotor.setPower(1); }
-
-    public void rotate() { rotationMotor.setPower(1); }
-
-    public void setRotateMotor( double power ) { rotationMotor.setPower( power ); }
-
-    public void setSuspendMotor( double power ) { suspendMotor.setPower( power ); }
-
-    public void setDroneMotor(double power ) { launchMotor.setPower( power ); }
-
-    //set servo to the given position
-    public void raiseArm() { flickServo.setPosition( .5); }
-
-    public void setArm() { flickServo.setPosition( 0.9 ); }
-
-    public void openClaw() { clawServo.setPosition( 0.67 ); }
-
-    public void closeClaw() { clawServo.setPosition( 0.05 ); }
-
-    public void setClawServo() { clawServo.setPosition(0.5); }
-
-    public void propUp(){ armPropServo.setPosition(0.5);}
-
-    public void propSet(){armPropServo.setPosition(0.46);}*/
 
     //Trebuchet servos and other thingies
     public void unLock() {
