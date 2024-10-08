@@ -42,14 +42,12 @@ public class Johnny6 {
     //[] means array
     public DcMotor[] allDriveMotors;
 
-    public DcMotor suspendMotor;
 
-    public DcMotor launchMotor;
 
-    public DcMotor rotationMotor;
 
-    //Comp robot servos
-    public Servo flickServo, clawServo, armPropServo;
+
+
+
 
     //Outreach robot servos
     public Servo lockServo;
@@ -136,12 +134,8 @@ public class Johnny6 {
                 //swebcamName = hwMap.get(WebcamName.class, "eyeofjohnny6");
 
                 //Add arm mechanism hardware devices here
-                suspendMotor = hwMap.dcMotor.get("suspendMotor");
-                launchMotor = hwMap.dcMotor.get("launchMotor");
-                rotationMotor = hwMap.dcMotor.get("rotationMotor");
-                flickServo = hwMap.servo.get("flickServo");
-                clawServo = hwMap.servo.get("clawServo");
-                armPropServo = hwMap.servo.get("armPropServo");
+
+
                 break;
 
             case MECHANUM:
@@ -241,9 +235,6 @@ public class Johnny6 {
         motorBackRight.setPower(0);
         motorFrontLeft.setPower(0);
         motorFrontRight.setPower(0);
-        suspendMotor.setPower(0);
-        launchMotor.setPower(0);
-        rotationMotor.setPower(0);
 
     }
 
