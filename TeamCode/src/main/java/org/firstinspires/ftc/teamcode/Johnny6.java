@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static java.nio.file.Files.move;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -41,13 +43,6 @@ public class Johnny6 {
     public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
     //[] means array
     public DcMotor[] allDriveMotors;
-
-
-
-
-
-
-
 
     //Outreach robot servos
     public Servo lockServo;
@@ -131,41 +126,14 @@ public class Johnny6 {
 
                 imu.initialize(parameters);
 
+                allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
+
                 //swebcamName = hwMap.get(WebcamName.class, "eyeofjohnny6");
 
                 //Add arm mechanism hardware devices here
 
 
                 break;
-
-            case MECHANUM:
-
-                //Setup motors that are used for the drivetrain);
-                motorBackRight = hwMap.dcMotor.get("motorBackRight");
-
-                //Reverse motors
-                motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-                motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
-                //Here would go any additional hardware devices for the robot
-
-                imu = hwMap.get(IMU.class, "imu");
-
-                parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
-
-                imu.initialize(parameters);
-
-
-                //camera setup!
-                //webcamName=hwMap.get(WebcamName.class,"eyeofjohnny6");
-
-                //add arm mechanisms and servo thingys
-
-                allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
-                break;
-
 
             case TEST:
 
@@ -416,9 +384,14 @@ public class Johnny6 {
 
         resetDriveEncoders();
 
+        motorFrontLeft.setTargetPosition(tickTarget);
+        motorFrontRight.setTargetPosition(-tickTarget);
+        motorBackLeft.setTargetPosition(-tickTarget);
+        motorBackRight.setTargetPosition(tickTarget);
+
+
         for (DcMotor x : allDriveMotors) {
 
-            x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         }
