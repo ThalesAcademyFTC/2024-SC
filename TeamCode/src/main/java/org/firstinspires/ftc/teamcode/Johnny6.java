@@ -372,7 +372,8 @@ public class Johnny6 {
 
     }
 
-    public void moveBakwardInches(double inches, double speed) {
+
+    public void moveBackwardInches(double inches, double speed) {
 
         moveForwardInches(-inches, -speed);
 
