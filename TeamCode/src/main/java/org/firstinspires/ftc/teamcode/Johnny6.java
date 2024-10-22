@@ -116,6 +116,7 @@ public class Johnny6 {
 
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+                slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
                 imu = hwMap.get(IMU.class, "imu");
