@@ -383,7 +383,7 @@ public class Johnny6 {
         int tickTarget = (int) Math.round(inches * X_INCH_TICKS);
 
         resetDriveEncoders();
-
+        //
         motorFrontLeft.setTargetPosition(tickTarget);
         motorFrontRight.setTargetPosition(-tickTarget);
         motorBackLeft.setTargetPosition(-tickTarget);
