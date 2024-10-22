@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 @TeleOp(name="Johnny7Teleop")
 public class Johnny7Teleop extends OpMode {
     Johnny6 johnny7;
@@ -32,5 +34,12 @@ public class Johnny7Teleop extends OpMode {
             }
 
         johnny7.move(x,y,turn);
+
+            if(gamepad2.dpad_up) {
+                johnny7.slideUp();
+            }
+            if(gamepad2.dpad_down) {
+                johnny7.slideDown();
+            }
     }
 }

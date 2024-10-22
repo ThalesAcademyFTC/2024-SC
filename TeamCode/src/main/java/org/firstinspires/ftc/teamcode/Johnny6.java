@@ -40,9 +40,10 @@ public class Johnny6 {
 
     //Definitions for global variables
 
-    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
+    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, slideMotor1, slideMotor2;
     //[] means array
     public DcMotor[] allDriveMotors;
+    public DcMotor[] allSlideMotors;
 
     //Outreach robot servos
     public Servo lockServo;
@@ -110,7 +111,8 @@ public class Johnny6 {
                 motorFrontRight = hwMap.dcMotor.get("motorFrontRight");
                 motorBackLeft = hwMap.dcMotor.get("motorBackLeft");
                 motorBackRight = hwMap.dcMotor.get("motorBackRight");
-
+                slideMotor1 = hwMap.dcMotor.get("slideMotor1");
+                slideMotor2 = hwMap.dcMotor.get("slideMotor2");
 
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -127,6 +129,7 @@ public class Johnny6 {
                 imu.initialize(parameters);
 
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
+                allSlideMotors = new DcMotor[]{slideMotor1, slideMotor2};
 
                 //swebcamName = hwMap.get(WebcamName.class, "eyeofjohnny6");
 
@@ -203,6 +206,8 @@ public class Johnny6 {
         motorBackRight.setPower(0);
         motorFrontLeft.setPower(0);
         motorFrontRight.setPower(0);
+        slideMotor1.setPower(0);
+        slideMotor2.setPower(0);
 
     }
 
@@ -348,6 +353,10 @@ public class Johnny6 {
     public boolean isLockSensorPressed() {
         return lockSensor.isPressed();
     }
+
+    //Competetion teleop movement for motors and servos
+    public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
+    public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
 
 
     public void moveForwardInches(double inches, double speed) {
