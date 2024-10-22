@@ -17,14 +17,19 @@ public class Johnny7Teleop extends OpMode {
         double y=gamepad1.left_stick_y;
         double x=gamepad1.left_stick_x;
         y*=y;
-        if(gamepad1.left_stick_y>0){
-            y=-y;
-        }
-        x*=x;
-        if(gamepad1.left_stick_x<0){
-            x=-x;
-        }
-        double turn=gamepad1.right_stick_x/2;
+            if (gamepad1.left_stick_y > 0){
+                    y = -y;
+            }
+            x *= x;
+            if (gamepad1.left_stick_x < 0) {
+                    x = -x;
+            }
+            double turn = gamepad1.right_stick_x / 2;
+            if(gamepad1.right_bumper){
+                x = x / 3;
+                y = y / 3;
+                turn = turn / 3;
+            }
 
         johnny7.move(x,y,turn);
     }

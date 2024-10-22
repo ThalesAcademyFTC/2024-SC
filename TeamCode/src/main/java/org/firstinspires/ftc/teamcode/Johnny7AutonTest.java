@@ -23,5 +23,9 @@ public class Johnny7AutonTest extends LinearOpMode {
         johnny7.moveForwardInches(50,.5);
         johnny7.rest();
         johnny7.moveRightInches(100,.2);
+        johnny7.rest();
+        johnny7.moveBackwardInches(50, .3);
+        johnny7.rest();
+        johnny7.moveLeftInches(75,.3);
     }
 }
