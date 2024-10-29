@@ -47,8 +47,12 @@ public class Johnny6 {
 
     //Outreach robot servos
     public Servo lockServo;
-
+    // for outreach
     public TouchSensor lockSensor;
+
+
+    // for viperslides
+    public TouchSensor bottomSensor;
 
     //public CRServo //future necessary robot functions using servos
     private IMU imu;
@@ -128,6 +132,8 @@ public class Johnny6 {
 
 
                 imu.initialize(parameters);
+                //initialize touch sensor
+                bottomSensor=hwMap.touchSensor.get("bottomSensor");
 
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
                 allSlideMotors = new DcMotor[]{slideMotor1, slideMotor2};
@@ -355,11 +361,15 @@ public class Johnny6 {
         return lockSensor.isPressed();
     }
 
+    public boolean isBottomSensorPressed() {
+        return bottomSensor.isPressed();
+    }
+
     //Competetion teleop movement for motors and servos
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
     public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
 
-
+    public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
 
         //Converts to integer by rounding. CASTS to int after rounding.
@@ -388,6 +398,7 @@ public class Johnny6 {
         moveForwardInches(-inches, -speed);
 
     }
+
 
     public void moveRightInches(double inches, double speed) {
 
