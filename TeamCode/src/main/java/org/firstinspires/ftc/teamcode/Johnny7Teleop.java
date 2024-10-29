@@ -18,6 +18,9 @@ public class Johnny7Teleop extends OpMode {
     public void loop(){
         double y=gamepad1.left_stick_y;
         double x=gamepad1.left_stick_x;
+        boolean bottomSensorPressed = false;
+        boolean dpadDownPressed=false;
+        boolean dpadDownProcessed=false;
         y*=y;
             if (gamepad1.left_stick_y > 0){
                     y = -y;
@@ -35,12 +38,21 @@ public class Johnny7Teleop extends OpMode {
 
         johnny7.move(x,y,turn);
 
+
+
             if(gamepad2.dpad_up) {
                 johnny7.slideUp();
             } else if(gamepad2.dpad_down) {
                 johnny7.slideDown();
-            } else {
+            }
+            else {
                 johnny7.rest();
+            }
+            if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){
+                bottomSensorPressed=true;
+                if(bottomSensorPressed){
+                    johnny7.stopBottomSlide();
+                }
             }
     }
 }
