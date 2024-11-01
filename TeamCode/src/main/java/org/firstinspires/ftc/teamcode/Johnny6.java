@@ -395,7 +395,7 @@ public class Johnny6 {
     public void moveSlideMotors(double ticks, double speed){
 
         resetSlideEncoders();
-
+//sand
         for (DcMotor x:allSlideMotors){
             //x.setTargetPosition();
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
