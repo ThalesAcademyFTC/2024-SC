@@ -44,17 +44,18 @@ public class Johnny7Teleop extends OpMode {
                 johnny7.slideUp();
             } else if(gamepad2.dpad_down) {
 
-                johnny7.slideDown();    
+                johnny7.slideDown();
+                if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){
+                    bottomSensorPressed=true;
+                    if(bottomSensorPressed){
+                        johnny7.stopBottomSlide();
+                    }
+                }
             }
             else {
 
                 johnny7.rest();
             }
-            if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){
-                bottomSensorPressed=true;
-                if(bottomSensorPressed){
-                    johnny7.stopBottomSlide();
-                }
-            }
+
     }
 }
