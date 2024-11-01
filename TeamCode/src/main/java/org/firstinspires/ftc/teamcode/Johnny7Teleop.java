@@ -36,6 +36,7 @@ public class Johnny7Teleop extends OpMode {
                 turn = turn / 3;
             }
 
+
         johnny7.move(x,y,turn);
 
 
@@ -45,13 +46,9 @@ public class Johnny7Teleop extends OpMode {
             } else if(gamepad2.dpad_down) {
 
                 johnny7.slideDown();
-                //Sensor Thingy for Johnny7
-                if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){
-                    bottomSensorPressed=true;
-                    if(bottomSensorPressed){
-                        johnny7.stopBottomSlide();
-                    }
-                }
+
+
+
             }
             else {
 

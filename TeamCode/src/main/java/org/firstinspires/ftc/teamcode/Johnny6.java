@@ -392,6 +392,22 @@ public class Johnny6 {
 
     }
 
+    public void moveSlideMotors(double ticks, double speed){
+
+        resetSlideEncoders();
+
+        for (DcMotor x:allSlideMotors){
+            //x.setTargetPosition();
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        slideMotor1.setPower(0);
+
+
+
+    }
+
 
     public void moveBackwardInches(double inches, double speed) {
 
@@ -450,6 +466,13 @@ public class Johnny6 {
 
     private void resetDriveEncoders() {
         for (DcMotor x: allDriveMotors) {
+            x.setPower(0);
+            x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+    private void resetSlideEncoders(){
+        for(DcMotor x:allSlideMotors){
             x.setPower(0);
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
