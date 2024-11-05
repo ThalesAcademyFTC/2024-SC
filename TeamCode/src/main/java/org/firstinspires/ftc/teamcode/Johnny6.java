@@ -47,6 +47,8 @@ public class Johnny6 {
 
     //Outreach robot servos
     public Servo lockServo;
+    //Bucket Servo
+    public Servo bucketServo;
     // for outreach
     public TouchSensor lockSensor;
 
@@ -134,7 +136,7 @@ public class Johnny6 {
                 imu.initialize(parameters);
                 //initialize touch sensor
                 bottomSensor=hwMap.touchSensor.get("bottomSensor");
-
+                bucketServo=hwMap.servo.get("bucketServo");
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
                 allSlideMotors = new DcMotor[]{slideMotor1, slideMotor2};
 
@@ -357,6 +359,7 @@ public class Johnny6 {
         lockServo.setPosition(1);
     }
 
+
     public boolean isLockSensorPressed() {
         return lockSensor.isPressed();
     }
@@ -368,6 +371,10 @@ public class Johnny6 {
     //Competetion teleop movement for motors and servos
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
     public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
+
+    public void bucketPrimed() {bucketServo.setPosition(0);}
+
+    public void bucketDump() {bucketServo.setPosition(0.7);}
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
@@ -392,10 +399,10 @@ public class Johnny6 {
 
     }
 
-    public void moveSlideMotors(double ticks, double speed){
+    /*public void moveSlideMotors(double ticks, double speed){
 
         resetSlideEncoders();
-//sand
+
         for (DcMotor x:allSlideMotors){
             //x.setTargetPosition();
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -406,7 +413,7 @@ public class Johnny6 {
 
 
 
-    }
+    }*/
 
 
     public void moveBackwardInches(double inches, double speed) {

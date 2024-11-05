@@ -12,15 +12,15 @@ public class Johnny7Teleop extends OpMode {
 
 
     @Override
-    public void init(){johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);}
+    public void init(){johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6); johnny7.bucketPrimed();}
 
     @Override
     public void loop(){
         double y=gamepad1.left_stick_y;
         double x=gamepad1.left_stick_x;
-        boolean bottomSensorPressed = false;
-        boolean dpadDownPressed=false;
-        boolean dpadDownProcessed=false;
+        boolean isUp=false;
+        boolean isDown;
+
         y*=y;
             if (gamepad1.left_stick_y > 0){
                     y = -y;
@@ -43,17 +43,29 @@ public class Johnny7Teleop extends OpMode {
 
             if(gamepad2.dpad_up) {
                 johnny7.slideUp();
+                isUp=true;
+                isDown=false;
             } else if(gamepad2.dpad_down) {
-
-                johnny7.slideDown();
-
-
-
+                if(johnny7.isBottomSensorPressed()) {
+                    johnny7.rest();
+                }
+                else {
+                    johnny7.slideDown();
+                }
             }
             else {
 
                 johnny7.rest();
+                isDown=false;
+                isUp=false;
             }
+            if(gamepad2.x){
+                johnny7.bucketDump();
+                //set to tap
 
+            }
+            else if(gamepad2.b){
+                johnny7.bucketPrimed();
+            }
     }
 }
