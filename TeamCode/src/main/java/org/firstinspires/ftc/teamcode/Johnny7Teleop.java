@@ -20,6 +20,7 @@ public class Johnny7Teleop extends OpMode {
         double x=gamepad1.left_stick_x;
         boolean isUp=false;
         boolean isDown;
+        int isPrimed=0;
 
         y*=y;
             if (gamepad1.left_stick_y > 0){
@@ -39,6 +40,19 @@ public class Johnny7Teleop extends OpMode {
 
         johnny7.move(x,y,turn);
 
+                if(gamepad2.x){
+                   isPrimed+=1;
+                   if(isPrimed==1){
+                       johnny7.bucketDump();
+                   }
+                   else if(isPrimed<1){
+                       johnny7.bucketPrimed();
+                       isPrimed=0;
+                   }
+                }
+                else{
+                    johnny7.bucketPrimed();
+                }
 
 
             if(gamepad2.dpad_up) {
@@ -56,16 +70,11 @@ public class Johnny7Teleop extends OpMode {
             else {
 
                 johnny7.rest();
-                isDown=false;
-                isUp=false;
-            }
-            if(gamepad2.x){
-                johnny7.bucketDump();
-                //set to tap
 
             }
-            else if(gamepad2.b){
-                johnny7.bucketPrimed();
-            }
+
+
+
+
     }
 }

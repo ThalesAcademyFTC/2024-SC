@@ -368,13 +368,15 @@ public class Johnny6 {
         return bottomSensor.isPressed();
     }
 
+
+
     //Competetion teleop movement for motors and servos
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
     public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
 
     public void bucketPrimed() {bucketServo.setPosition(0);}
 
-    public void bucketDump() {bucketServo.setPosition(0.7);}
+    public void bucketDump() {bucketServo.setPosition(0.1);}
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
