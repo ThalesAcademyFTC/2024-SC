@@ -20,6 +20,8 @@ public class Johnny7Teleop extends OpMode {
         double x=gamepad1.left_stick_x;
         boolean isUp=false;
         boolean isDown;
+         boolean motorToggle = false;
+         boolean lastButtonState = false;
         boolean isBumperPressed=false;
         boolean isBumperProcessed = false;
         boolean isClawOpen=false;
@@ -44,21 +46,31 @@ public class Johnny7Teleop extends OpMode {
 
         johnny7.move(x,y,turn);
 
-                if(gamepad2.right_trigger>0){
-                   isPrimed+=1;
-                   if(isPrimed==1){
-                       johnny7.bucketDump();
-                   }
-                   else if(isPrimed<1){
-                       johnny7.bucketPrimed();
-                       isPrimed=0;
-                   }
+                if(gamepad2.a&&!lastButtonState){
+                    float travel = 5.0f;
+                    motorToggle=!motorToggle;
+                    if(motorToggle){
+                        johnny7.moveClawMotor(travel,0.5);
+                    }
+                    else{
+                        johnny7.moveClawMotor(-travel,0);
+                    }
+                }
+                else{
+
+                }
+
+
+                if(gamepad2.right_trigger>0) {
+                    johnny7.bucketDump();
+                }
+                else if(gamepad2.right_trigger==0){
+                    johnny7.bucketPrimed();
                 }
                 else{
                     johnny7.bucketPrimed();
                 }
                 //This is the simmilar code to the Trebuchet Teleop
-
                 if(gamepad2.right_bumper){
                  isBumperPressed=true;
                 }
