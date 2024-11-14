@@ -10,7 +10,7 @@ public class Johnny7Teleop extends OpMode {
     //allows driver customization
     static final double STRAFE_FACTOR=1.1;
 
-
+    //initialize code :)
     @Override
     public void init(){johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6); johnny7.bucketPrimed();}
 
@@ -20,8 +20,11 @@ public class Johnny7Teleop extends OpMode {
         double x=gamepad1.left_stick_x;
         boolean isUp=false;
         boolean isDown;
+        boolean isBumperPressed=false;
+        boolean isBumperProcessed = false;
+        boolean isClawOpen=false;
         int isPrimed=0;
-
+    //remember, y is the opposite on the axis
         y*=y;
             if (gamepad1.left_stick_y > 0){
                     y = -y;
@@ -31,7 +34,8 @@ public class Johnny7Teleop extends OpMode {
                     x = -x;
             }
             double turn = gamepad1.right_stick_x / 2;
-            if(gamepad1.right_bumper){
+            //this is for slowing down the silly robot
+            if(gamepad1.left_bumper){
                 x = x / 3;
                 y = y / 3;
                 turn = turn / 3;
@@ -40,7 +44,7 @@ public class Johnny7Teleop extends OpMode {
 
         johnny7.move(x,y,turn);
 
-                if(gamepad2.x){
+                if(gamepad2.right_trigger>0){
                    isPrimed+=1;
                    if(isPrimed==1){
                        johnny7.bucketDump();
@@ -53,8 +57,29 @@ public class Johnny7Teleop extends OpMode {
                 else{
                     johnny7.bucketPrimed();
                 }
+                //This is the simmilar code to the Trebuchet Teleop
 
+                if(gamepad2.right_bumper){
+                 isBumperPressed=true;
+                }
+                else{
+                 isBumperPressed=false;
+                 isBumperProcessed=false;
+                }
+                if(isBumperPressed&&!isBumperProcessed){
+                    if(isClawOpen){
+                        johnny7.clawOpen();
+                        isClawOpen=false;
+                    }
+                    else{
+                        johnny7.clawClose();
+                        isClawOpen=true;
 
+                    }
+                    isBumperProcessed=true;
+
+                }
+            //This is the code for making the viper slides go up and down
             if(gamepad2.dpad_up) {
                 johnny7.slideUp();
                 isUp=true;
@@ -78,3 +103,6 @@ public class Johnny7Teleop extends OpMode {
 
     }
 }
+
+
+//yeah

@@ -49,6 +49,8 @@ public class Johnny6 {
     public Servo lockServo;
     //Bucket Servo
     public Servo bucketServo;
+
+    public Servo clawServo;
     // for outreach
     public TouchSensor lockSensor;
 
@@ -137,6 +139,7 @@ public class Johnny6 {
                 //initialize touch sensor
                 bottomSensor=hwMap.touchSensor.get("bottomSensor");
                 bucketServo=hwMap.servo.get("bucketServo");
+                clawServo=hwMap.servo.get("clawServo");
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
                 allSlideMotors = new DcMotor[]{slideMotor1, slideMotor2};
 
@@ -373,11 +376,15 @@ public class Johnny6 {
     //Competetion teleop movement for motors and servos
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
     public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
-
+    //This is for the bucket(Obviously)
     public void bucketPrimed() {bucketServo.setPosition(0);}
 
     public void bucketDump() {bucketServo.setPosition(0.1);}
+    //This is for the claw
+    public void clawClose(){clawServo.setPosition(0);}
 
+    public void clawOpen(){clawServo.setPosition(.1);}
+    //For the bottom slide sensor
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
 
