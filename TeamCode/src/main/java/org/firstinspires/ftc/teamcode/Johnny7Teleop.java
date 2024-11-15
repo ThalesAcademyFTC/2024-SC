@@ -54,7 +54,6 @@ public class Johnny7Teleop extends OpMode {
                 bottomSensorPressed=true;
                 if(bottomSensorPressed){
                     johnny7.stopBottomSlide();
-
                 }
             }
     }
