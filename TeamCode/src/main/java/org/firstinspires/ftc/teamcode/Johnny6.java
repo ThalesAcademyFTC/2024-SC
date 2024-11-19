@@ -120,6 +120,12 @@ public class Johnny6 {
                 motorBackRight = hwMap.dcMotor.get("motorBackRight");
                 slideMotor1 = hwMap.dcMotor.get("slideMotor1");
                 slideMotor2 = hwMap.dcMotor.get("slideMotor2");
+                clawMotor = hwMap.dcMotor.get("clawMotor");
+                bucketServo = hwMap.servo.get("bucketServo");
+                clawServo = hwMap.servo.get("clawServo");
+
+                slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -140,6 +146,7 @@ public class Johnny6 {
 
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
                 allSlideMotors = new DcMotor[]{slideMotor1, slideMotor2};
+
 
                 //swebcamName = hwMap.get(WebcamName.class, "eyeofjohnny6");
 
