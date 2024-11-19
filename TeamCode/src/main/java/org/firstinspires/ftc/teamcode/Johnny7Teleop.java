@@ -42,6 +42,7 @@ public class Johnny7Teleop extends OpMode {
             if (gamepad1.left_stick_x < 0) {
                     x = -x;
             }
+
             double turn = gamepad1.right_stick_x / 2;
             if(gamepad1.right_bumper){
                 x = x / 3;

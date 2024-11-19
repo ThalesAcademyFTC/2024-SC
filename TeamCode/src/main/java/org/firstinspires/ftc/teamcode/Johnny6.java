@@ -40,7 +40,7 @@ public class Johnny6 {
 
     //Definitions for global variables
 
-    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, slideMotor1, slideMotor2;
+    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, slideMotor1, slideMotor2, clawMotor;
     //[] means array
     public DcMotor[] allDriveMotors;
     public DcMotor[] allSlideMotors;
@@ -51,8 +51,11 @@ public class Johnny6 {
     public TouchSensor lockSensor;
 
 
-    // for viperslides
+    // Competition teleop hardware
     public TouchSensor bottomSensor;
+
+    public Servo clawServo;
+    public Servo bucketServo;
 
     //public CRServo //future necessary robot functions using servos
     private IMU imu;
@@ -368,9 +371,7 @@ public class Johnny6 {
     //Competetion teleop movement for motors and servos
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
     public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
-<<<<<<< Updated upstream
 
-=======
     //This is for the bucket(Obviously)
     public void bucketPrimed() {bucketServo.setPosition(0.4);}
 
@@ -380,7 +381,7 @@ public class Johnny6 {
 
     public void clawOpen(){clawServo.setPosition(0.3);}
     //For the bottom slide sensor
->>>>>>> Stashed changes
+
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
 
@@ -404,8 +405,7 @@ public class Johnny6 {
 
     }
 
-<<<<<<< Updated upstream
-=======
+
     public void moveClaw(double speed)
     {
         clawMotor.setPower(speed);
@@ -425,6 +425,8 @@ public class Johnny6 {
         resetClawMotor();
     }
 
+    private void resetClawMotor() {
+    }
 
 
     /*public void moveSlideMotors(double ticks, double speed){
@@ -442,8 +444,6 @@ public class Johnny6 {
 
 
     }*/
-
->>>>>>> Stashed changes
 
     public void moveBackwardInches(double inches, double speed) {
 
