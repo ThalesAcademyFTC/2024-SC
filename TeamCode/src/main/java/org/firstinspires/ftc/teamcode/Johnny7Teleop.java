@@ -12,25 +12,19 @@ public class Johnny7Teleop extends OpMode {
 
 
     @Override
-<<<<<<< Updated upstream
-    public void init(){johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);}
-=======
     public void init(){
         johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);
         johnny7.bucketPrimed();
         johnny7.clawClose();
     }
->>>>>>> Stashed changes
 
     @Override
     public void loop(){
         double y=gamepad1.left_stick_y;
         double x=gamepad1.left_stick_x;
-<<<<<<< Updated upstream
         boolean bottomSensorPressed = false;
         boolean dpadDownPressed=false;
         boolean dpadDownProcessed=false;
-=======
         boolean isUp=false;
         boolean isDown;
          boolean motorToggle = false;
@@ -40,7 +34,6 @@ public class Johnny7Teleop extends OpMode {
         boolean isClawOpen=false;
         int isPrimed=0;
     //remember, y is the opposite on the axis
->>>>>>> Stashed changes
         y*=y;
             if (gamepad1.left_stick_y > 0){
                     y = -y;
@@ -58,10 +51,7 @@ public class Johnny7Teleop extends OpMode {
 
         johnny7.move(x,y,turn);
 
-<<<<<<< Updated upstream
 
-
-=======
                 if(gamepad2.left_trigger > 0) {
                     johnny7.moveClaw(gamepad2.left_trigger*0.5);
                 } else if(gamepad2.right_trigger > 0) {
@@ -109,7 +99,6 @@ public class Johnny7Teleop extends OpMode {
             }
 
             //This is the code for making the viper slides go up and down
->>>>>>> Stashed changes
             if(gamepad2.dpad_up) {
                 johnny7.slideUp();
             } else if(gamepad2.dpad_down) {
