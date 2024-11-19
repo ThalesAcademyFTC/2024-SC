@@ -368,7 +368,19 @@ public class Johnny6 {
     //Competetion teleop movement for motors and servos
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
     public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
+<<<<<<< Updated upstream
 
+=======
+    //This is for the bucket(Obviously)
+    public void bucketPrimed() {bucketServo.setPosition(0.4);}
+
+    public void bucketDump() {bucketServo.setPosition(0.1);}
+    //This is for the claw
+    public void clawClose(){clawServo.setPosition(0.7);}
+
+    public void clawOpen(){clawServo.setPosition(0.3);}
+    //For the bottom slide sensor
+>>>>>>> Stashed changes
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
 
@@ -392,6 +404,46 @@ public class Johnny6 {
 
     }
 
+<<<<<<< Updated upstream
+=======
+    public void moveClaw(double speed)
+    {
+        clawMotor.setPower(speed);
+    }
+    public void moveClawMotor(double inches, double speed){
+        int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
+
+        resetClawMotor();
+
+            clawMotor.setTargetPosition(tickTarget);
+            clawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            clawMotor.setPower(0.3);
+        while (clawMotor.isBusy()) {
+                telem.addData("claw motor encoder: ", clawMotor.getCurrentPosition());
+                telem.update();
+        }
+        resetClawMotor();
+    }
+
+
+
+    /*public void moveSlideMotors(double ticks, double speed){
+
+        resetSlideEncoders();
+
+        for (DcMotor x:allSlideMotors){
+            //x.setTargetPosition();
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        slideMotor1.setPower(0);
+
+
+
+    }*/
+
+>>>>>>> Stashed changes
 
     public void moveBackwardInches(double inches, double speed) {
 

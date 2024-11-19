@@ -12,15 +12,35 @@ public class Johnny7Teleop extends OpMode {
 
 
     @Override
+<<<<<<< Updated upstream
     public void init(){johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);}
+=======
+    public void init(){
+        johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);
+        johnny7.bucketPrimed();
+        johnny7.clawClose();
+    }
+>>>>>>> Stashed changes
 
     @Override
     public void loop(){
         double y=gamepad1.left_stick_y;
         double x=gamepad1.left_stick_x;
+<<<<<<< Updated upstream
         boolean bottomSensorPressed = false;
         boolean dpadDownPressed=false;
         boolean dpadDownProcessed=false;
+=======
+        boolean isUp=false;
+        boolean isDown;
+         boolean motorToggle = false;
+         boolean lastButtonState = false;
+        boolean isBumperPressed= false;
+        boolean isBumperProcessed = false;
+        boolean isClawOpen=false;
+        int isPrimed=0;
+    //remember, y is the opposite on the axis
+>>>>>>> Stashed changes
         y*=y;
             if (gamepad1.left_stick_y > 0){
                     y = -y;
@@ -38,8 +58,58 @@ public class Johnny7Teleop extends OpMode {
 
         johnny7.move(x,y,turn);
 
+<<<<<<< Updated upstream
 
 
+=======
+                if(gamepad2.left_trigger > 0) {
+                    johnny7.moveClaw(gamepad2.left_trigger*0.5);
+                } else if(gamepad2.right_trigger > 0) {
+                    johnny7.moveClaw(-gamepad2.right_trigger*0.5);
+                } else {
+                    johnny7.moveClaw(0);
+                }
+
+                //Bucket code
+                if(gamepad2.left_bumper) {
+                    johnny7.bucketDump();
+                } else {
+                    johnny7.bucketPrimed();
+                }
+
+                //This is the simmilar code to the Trebuchet Teleop
+                /*if(gamepad2.right_bumper){
+                 isBumperPressed=true;
+                }
+                else{
+                 isBumperPressed=false;
+                 isBumperProcessed=false;
+                }
+                if(isBumperPressed&&!isBumperProcessed){
+                    if(isClawOpen){
+                        johnny7.clawClose();
+                        isClawOpen=false;
+                    }
+                    else{
+                        johnny7.clawOpen();
+                        isClawOpen=true;
+
+                    }
+                    isBumperProcessed=true;
+
+                }*/
+
+            //test claw code
+
+            if(gamepad2.a){
+                johnny7.clawOpen();
+            }
+            else if(gamepad2.b){
+                johnny7.clawClose();
+            }
+
+            //This is the code for making the viper slides go up and down
+>>>>>>> Stashed changes
             if(gamepad2.dpad_up) {
                 johnny7.slideUp();
             } else if(gamepad2.dpad_down) {
