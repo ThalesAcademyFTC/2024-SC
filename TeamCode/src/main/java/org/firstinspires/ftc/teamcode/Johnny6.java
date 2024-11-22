@@ -6,6 +6,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -40,10 +41,11 @@ public class Johnny6 {
 
     //Definitions for global variables
 
-    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, slideMotor1, slideMotor2, clawMotor;
+    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, clawMotor;
+    public DcMotorEx slideMotor1, slideMotor2;
     //[] means array
     public DcMotor[] allDriveMotors;
-    public DcMotor[] allSlideMotors;
+    public DcMotorEx[] allSlideMotors;
 
     //Outreach robot servos
     public Servo lockServo;
@@ -118,14 +120,14 @@ public class Johnny6 {
                 motorFrontRight = hwMap.dcMotor.get("motorFrontRight");
                 motorBackLeft = hwMap.dcMotor.get("motorBackLeft");
                 motorBackRight = hwMap.dcMotor.get("motorBackRight");
-                slideMotor1 = hwMap.dcMotor.get("slideMotor1");
-                slideMotor2 = hwMap.dcMotor.get("slideMotor2");
+                slideMotor1 = hwMap.get(DcMotorEx.class,"slideMotor1");
+                slideMotor2 = hwMap.get(DcMotorEx.class,"slideMotor2");
                 clawMotor = hwMap.dcMotor.get("clawMotor");
                 bucketServo = hwMap.servo.get("bucketServo");
                 clawServo = hwMap.servo.get("clawServo");
 
-                slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                //slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                //slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -145,7 +147,7 @@ public class Johnny6 {
                 bottomSensor=hwMap.touchSensor.get("bottomSensor");
 
                 allDriveMotors = new DcMotor[]{motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
-                allSlideMotors = new DcMotor[]{slideMotor1, slideMotor2};
+                allSlideMotors = new DcMotorEx[]{slideMotor1, slideMotor2};
 
 
                 //swebcamName = hwMap.get(WebcamName.class, "eyeofjohnny6");
@@ -377,7 +379,7 @@ public class Johnny6 {
 
     //Competetion teleop movement for motors and servos
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
-    public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
+    //public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
 
     //This is for the bucket(Obviously)
     public void bucketPrimed() {bucketServo.setPosition(0.4);}
@@ -388,6 +390,38 @@ public class Johnny6 {
 
     public void clawOpen(){clawServo.setPosition(0.3);}
     //For the bottom slide sensor
+
+    public void slideUpMed(double inches){
+        int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
+        slideMotor1.setTargetPosition(1000);
+        slideMotor2.setTargetPosition(1000);
+
+        for(DcMotorEx x:allSlideMotors){
+            x.setTargetPosition(tickTarget);
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+    }
+
+    public void slideUpHigh(double inches){
+        int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
+        slideMotor1.setTargetPosition(2000);
+        slideMotor2.setTargetPosition(2000);
+        for(DcMotorEx x:allSlideMotors){
+            x.setTargetPosition(tickTarget);
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
+
+    public void slideDown(){
+        slideMotor1.setPower(-1);
+        slideMotor2.setPower(-1);
+        if(bottomSensor.isPressed()){
+            slideMotor1.setPower(0);
+            slideMotor2.setPower(0);
+            resetSlideEncoders();
+        }
+    }
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
@@ -499,6 +533,8 @@ public class Johnny6 {
                     telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
                     telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
                     telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
+                    telem.addData("slide motor 1 encoder:",slideMotor1.getCurrentPosition());
+                    telem.addData("slide motor 2 encoder: ",slideMotor2.getCurrentPosition());
                     telem.update();
                 } else {
                     finished = true;
@@ -512,6 +548,13 @@ public class Johnny6 {
             x.setPower(0);
             x.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+    private void resetSlideEncoders(){
+        for (DcMotorEx x:allSlideMotors){
+            x.setPower(0);
+            x.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            x.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
 }
