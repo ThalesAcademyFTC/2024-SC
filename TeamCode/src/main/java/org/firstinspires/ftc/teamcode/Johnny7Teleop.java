@@ -68,6 +68,20 @@ public class Johnny7Teleop extends OpMode {
                     johnny7.bucketPrimed();
                 }
 
+            //manual joystick override for slide
+            if(gamepad2.left_stick_y<-0.1){
+                johnny7.slideMotor1.setPower(1);
+                johnny7.slideMotor2.setPower(1);
+            }
+            else if(gamepad2.left_stick_y>0.1){
+                johnny7.slideMotor1.setPower(-1);
+                johnny7.slideMotor2.setPower(-1);
+            }
+            else{
+                johnny7.slideMotor1.setPower(0);
+                johnny7.slideMotor2.setPower(0);
+            }
+
                 //This is the simmilar code to the Trebuchet Teleop
                 /*if(gamepad2.right_bumper){
                  isBumperPressed=true;
@@ -101,11 +115,11 @@ public class Johnny7Teleop extends OpMode {
 
             //This is the code for making the viper slides go up and down
             if(gamepad2.dpad_up) {
-                johnny7.slideUpHigh(25);
+                johnny7.slideUpHigh(50);
             } else if(gamepad2.dpad_down) {
                 johnny7.slideDown();    
             } else if(gamepad2.dpad_right) {
-                johnny7.slideUpMed(20);
+                johnny7.slideUpMed(25);
             } else {
                 johnny7.rest();
             }
@@ -116,5 +130,6 @@ public class Johnny7Teleop extends OpMode {
 
                 }
             }
+
     }
 }

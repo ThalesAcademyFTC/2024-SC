@@ -23,6 +23,9 @@ public class Johnny6 {
 
     LinearOpMode auton;
 
+    OpMode teleop;
+
+
     public enum Drivetrain {
         MECHANUM,
         JOHNNY6,
@@ -73,6 +76,8 @@ public class Johnny6 {
     static final double X_INCH_TICKS = 40;
 
     public Johnny6(OpMode opmode, Drivetrain drivetrain) {
+
+        this.teleop = opmode;
 
         this.hwMap = opmode.hardwareMap;
 
@@ -132,7 +137,7 @@ public class Johnny6 {
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
-
+                //slideMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
 
                 imu = hwMap.get(IMU.class, "imu");
 
@@ -393,29 +398,33 @@ public class Johnny6 {
 
     public void slideUpMed(double inches){
         int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
-        slideMotor1.setTargetPosition(1000);
-        slideMotor2.setTargetPosition(1000);
+        //slideMotor1.setTargetPosition(1000);
+        //slideMotor2.setTargetPosition(1000);
 
         for(DcMotorEx x:allSlideMotors){
             x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            x.setPower(-0.5);
         }
+        waitForSlideMotors();
 
     }
 
     public void slideUpHigh(double inches){
         int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
-        slideMotor1.setTargetPosition(2000);
-        slideMotor2.setTargetPosition(2000);
+        //slideMotor1.setTargetPosition(2000);
+        //slideMotor2.setTargetPosition(2000);
         for(DcMotorEx x:allSlideMotors){
             x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            x.setPower(-0.5);
         }
+        waitForSlideMotors();
     }
 
     public void slideDown(){
-        slideMotor1.setPower(-1);
-        slideMotor2.setPower(-1);
+        slideMotor1.setPower(1);
+        slideMotor2.setPower(1);
         if(bottomSensor.isPressed()){
             slideMotor1.setPower(0);
             slideMotor2.setPower(0);
@@ -542,6 +551,19 @@ public class Johnny6 {
         }
     }
 
+    public void waitForSlideMotors() {
+        boolean finished = false;
+        while (!finished) {
+            if (slideMotor1.isBusy() || slideMotor2.isBusy()) {
+                telem.addData("slide motor 1 encoder:",slideMotor1.getCurrentPosition());
+                telem.addData("slide motor 2 encoder: ",slideMotor2.getCurrentPosition());
+                telem.update();
+            } else {
+                finished = true;
+            }
+        }
+    }
+
 
     private void resetDriveEncoders() {
         for (DcMotor x: allDriveMotors) {
@@ -554,7 +576,7 @@ public class Johnny6 {
         for (DcMotorEx x:allSlideMotors){
             x.setPower(0);
             x.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            x.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            x.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 }
