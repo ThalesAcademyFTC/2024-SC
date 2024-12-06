@@ -404,9 +404,10 @@ public class Johnny6 {
         for(DcMotorEx x:allSlideMotors){
             x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            x.setPower(-0.5);
+            x.setPower(0.5);
         }
         waitForSlideMotors();
+        resetSlideEncoders();
 
     }
 
@@ -417,18 +418,20 @@ public class Johnny6 {
         for(DcMotorEx x:allSlideMotors){
             x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            x.setPower(-0.5);
+            x.setPower(0.5);
         }
         waitForSlideMotors();
+        resetSlideEncoders();
     }
 
     public void slideDown(){
-        slideMotor1.setPower(1);
-        slideMotor2.setPower(1);
         if(bottomSensor.isPressed()){
             slideMotor1.setPower(0);
             slideMotor2.setPower(0);
             resetSlideEncoders();
+        } else {
+            slideMotor1.setPower(-0.6);
+            slideMotor2.setPower(-0.6);
         }
     }
 
@@ -556,7 +559,9 @@ public class Johnny6 {
         while (!finished) {
             if (slideMotor1.isBusy() || slideMotor2.isBusy()) {
                 telem.addData("slide motor 1 encoder:",slideMotor1.getCurrentPosition());
+                telem.addData("slide 1 target", slideMotor1.getTargetPosition());
                 telem.addData("slide motor 2 encoder: ",slideMotor2.getCurrentPosition());
+                telem.addData("slide 2 target", slideMotor2.getTargetPosition());
                 telem.update();
             } else {
                 finished = true;
@@ -575,7 +580,6 @@ public class Johnny6 {
     private void resetSlideEncoders(){
         for (DcMotorEx x:allSlideMotors){
             x.setPower(0);
-            x.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             x.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
