@@ -24,8 +24,6 @@ public class Johnny6 {
     LinearOpMode auton;
 
     OpMode teleop;
-
-
     public enum Drivetrain {
         MECHANUM,
         JOHNNY6,
@@ -230,8 +228,8 @@ public class Johnny6 {
         motorBackRight.setPower(0);
         motorFrontLeft.setPower(0);
         motorFrontRight.setPower(0);
-        slideMotor1.setPower(0);
-        slideMotor2.setPower(0);
+        //slideMotor1.setPower(0);
+        //slideMotor2.setPower(0);
 
     }
 
@@ -396,22 +394,8 @@ public class Johnny6 {
     public void clawOpen(){clawServo.setPosition(0.3);}
     //For the bottom slide sensor
 
-    public void slideUpMed(double inches){
-        int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
-        //slideMotor1.setTargetPosition(1000);
-        //slideMotor2.setTargetPosition(1000);
 
-        for(DcMotorEx x:allSlideMotors){
-            x.setTargetPosition(tickTarget);
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            x.setPower(0.5);
-        }
-        waitForSlideMotors();
-        resetSlideEncoders();
-
-    }
-
-    public void slideUpHigh(double inches){
+    public void slideTo(double inches){
         int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
         //slideMotor1.setTargetPosition(2000);
         //slideMotor2.setTargetPosition(2000);
@@ -419,19 +403,6 @@ public class Johnny6 {
             x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             x.setPower(0.5);
-        }
-        waitForSlideMotors();
-        resetSlideEncoders();
-    }
-
-    public void slideDown(){
-        if(bottomSensor.isPressed()){
-            slideMotor1.setPower(0);
-            slideMotor2.setPower(0);
-            resetSlideEncoders();
-        } else {
-            slideMotor1.setPower(-0.6);
-            slideMotor2.setPower(-0.6);
         }
     }
 

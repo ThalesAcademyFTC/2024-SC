@@ -32,10 +32,20 @@ public class Johnny7Teleop extends OpMode {
         boolean isBumperPressed= false;
         boolean isBumperProcessed = false;
         boolean isClawOpen=false;
+        boolean slidingUp = false;
         int isPrimed=0;
 
         //telemetry
         telemetry.addData("sensor state", johnny7.bottomSensor.isPressed());
+        telemetry.addData("slide motor 1 encoder:",johnny7.slideMotor1.getCurrentPosition());
+        telemetry.addData("slide 1 target", johnny7.slideMotor1.getTargetPosition());
+        telemetry.addData("slide motor 2 encoder: ",johnny7.slideMotor2.getCurrentPosition());
+        telemetry.addData("slide 2 target", johnny7.slideMotor2.getTargetPosition());
+        telemetry.addData("front left encoder:", johnny7.motorFrontLeft.getCurrentPosition());
+        telemetry.addData("front right encoder:", johnny7.motorFrontRight.getCurrentPosition());
+        telemetry.addData("back left encoder:", johnny7.motorBackLeft.getCurrentPosition());
+        telemetry.addData("back right encoder:", johnny7.motorBackRight.getCurrentPosition());
+        telemetry.update();
     //remember, y is the opposite on the axis
         y*=y;
             if (gamepad1.left_stick_y > 0){
@@ -72,19 +82,6 @@ public class Johnny7Teleop extends OpMode {
                 }
 
             //manual joystick override for slide
-            if(gamepad2.left_stick_y<-0.1){
-                johnny7.slideMotor1.setPower(1);
-                johnny7.slideMotor2.setPower(1);
-                johnny7.slideMotor2.setPower(1);
-            }
-            else if(gamepad2.left_stick_y>0.1){
-                johnny7.slideMotor1.setPower(-1);
-                johnny7.slideMotor2.setPower(-1);
-            }
-            else{
-                johnny7.slideMotor1.setPower(0);
-                johnny7.slideMotor2.setPower(0);
-            }
 
                 //This is the simmilar code to the Trebuchet Teleop
                 /*if(gamepad2.right_bumper){
@@ -118,21 +115,24 @@ public class Johnny7Teleop extends OpMode {
             }
 
             //This is the code for making the viper slides go up and down
-            if(gamepad2.dpad_up) {
-                johnny7.slideUpHigh(50);
-              //  telemetry.addData("slide motor 1 position", johnny7.slideMotor1.getTargetPosition());
-            } else if(gamepad2.dpad_down) {
-                johnny7.slideDown();    
-            } else if(gamepad2.dpad_right) {
-                johnny7.slideUpMed(15);
-            } else {
+            if(gamepad2.dpad_up&&!slidingUp) {
+                slidingUp = true;
+                johnny7.slideTo(50);
+            }
+            else if(gamepad2.dpad_down) {
+                johnny7.slideTo(0);
+            }
+            else if(gamepad2.dpad_right&&!slidingUp) {
+                slidingUp = true;
+                johnny7.slideTo(15);
+            }
+            else {
                 johnny7.rest();
             }
             if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){
                 bottomSensorPressed=true;
                 if(bottomSensorPressed){
                     johnny7.stopBottomSlide();
-
                 }
             }
 
