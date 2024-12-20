@@ -329,30 +329,6 @@ public class Johnny6 {
         }
     }
 
-    public void moveLeft(double speed) {
-        move(-speed, 0, 0);
-    }
-
-    public void moveRight(double speed) {
-        move(speed, 0, 0);
-    }
-
-    public void moveForward(double speed) {
-        move(speed, 0, 0);
-    }
-
-    public void moveBackward(double speed) {
-        move(0, speed, 0);
-    }
-
-    public void turnLeft(double speed) {
-        move(0, 0, -speed);
-    }
-
-    public void turnRight(double speed) {
-        move(0, 0, speed);
-    }
-
 
     public void resetYaw() {
         imu.resetYaw();

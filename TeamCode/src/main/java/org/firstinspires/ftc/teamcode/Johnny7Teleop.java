@@ -65,7 +65,7 @@ public class Johnny7Teleop extends OpMode {
 
         johnny7.move(x,y,turn);
 
-
+                //Move claw arm
                 if(gamepad2.left_trigger > 0) {
                     johnny7.moveClaw(gamepad2.left_trigger*0.5);
                 } else if(gamepad2.right_trigger > 0) {
@@ -81,32 +81,7 @@ public class Johnny7Teleop extends OpMode {
                     johnny7.bucketPrimed();
                 }
 
-            //manual joystick override for slide
-
-                //This is the simmilar code to the Trebuchet Teleop
-                /*if(gamepad2.right_bumper){
-                 isBumperPressed=true;
-                }
-                else{
-                 isBumperPressed=false;
-                 isBumperProcessed=false;
-                }
-                if(isBumperPressed&&!isBumperProcessed){
-                    if(isClawOpen){
-                        johnny7.clawClose();
-                        isClawOpen=false;
-                    }
-                    else{
-                        johnny7.clawOpen();
-                        isClawOpen=true;
-
-                    }
-                    isBumperProcessed=true;
-
-                }*/
-
-            //test claw code
-
+            //Claw code: may need to be changed
             if(gamepad2.x){
                 johnny7.clawOpen();
             }
@@ -129,6 +104,8 @@ public class Johnny7Teleop extends OpMode {
             else {
                 johnny7.rest();
             }
+
+            //touch sensor code
             if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){
                 bottomSensorPressed=true;
                 if(bottomSensorPressed){
