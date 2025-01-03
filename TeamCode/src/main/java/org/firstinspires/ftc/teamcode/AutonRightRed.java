@@ -15,45 +15,51 @@ public class AutonRightRed extends LinearOpMode {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
         runtime.reset();
         double speed = 0.5;
-        int sleep = 100;
+        int rest = 100;
 
 
         waitForStart();
         runtime.reset();
-        johnny7.moveForwardInches(24, speed);
-        sleep();
-        //move arm up to high bar
-        sleep();
-        //place block with clip
-        sleep();
-        //move arm down
-        sleep();
-        johnny7.moveRightInches(12, speed);
-        sleep();
-        johnny7.moveForwardInches(12, speed);
-        sleep();
-        johnny7.turnRight(speed); //degrees?
-        sleep();
-        johnny7.moveLeftInches(4, speed); //move first block
-        sleep();
-        johnny7.moveForwardInches(20, speed);
-        sleep();
-        johnny7.moveBackwardInches(20, speed);
-        sleep();
-        johnny7.moveLeftInches(4, speed); //move second block
-        sleep();
-        johnny7.moveForwardInches(20, speed);
-        sleep();
-        johnny7.moveBackwardInches(20, speed);
-        sleep();
-        johnny7.moveLeftInches(4,speed); //move third block
-        sleep();
-        johnny7.moveForwardInches(20, speed);
-        sleep();
-        johnny7.moveBackwardInches(20, speed);
-        sleep();
-        johnny7.moveRightInches(10, speed); //robot parks
-        sleep();
+        johnny7.moveForwardInches(24, speed); //move forward one square
+        sleep(rest);
+        johnny7.moveLeftInches(30, speed); //move left to arrive at the buckets
+        sleep(rest);
+        johnny7.turnRightDegrees(180, speed); //turn to face the buckets
+        sleep(rest);
+        johnny7.moveForwardInches(5, speed); //get closer to the buckets
+        sleep(rest);
+        johnny7.slideTo(50); //raise arm up to the high bucket
+        sleep(rest);
+        johnny7.bucketDump(); //dump specimen
+        sleep(rest);
+        johnny7.slideTo(0); //lower arm
+        sleep(rest);
+        johnny7.moveBackwardInches(5, speed); //move away from buckets
+        sleep(rest);
+        johnny7.moveLeftInches(45, speed); //move to the other side of the field
+        sleep(rest);
+        johnny7.moveBackwardInches(12, speed); //move backwards
+        sleep(rest);
+        johnny7.moveLeftInches(5, speed); //move to face the first block
+        sleep(rest);
+        johnny7.moveForwardInches(10, speed); //push the first block into the zone
+        sleep(rest);
+        johnny7.moveBackwardInches(10, speed);
+        sleep(rest);
+        johnny7.moveLeftInches(5, speed);
+        sleep(rest);
+        johnny7.moveForwardInches(10, speed); //push the second block into the zone
+        sleep(rest);
+        johnny7.moveBackwardInches(10, speed);
+        sleep(rest);
+        johnny7.moveLeftInches(5, speed);
+        sleep(rest);
+        johnny7.moveForwardInches(10, speed); //push the third block into the zone
+        sleep(rest);
+        johnny7.moveBackwardInches(10, speed);
+        sleep(rest);
+        johnny7.moveRightInches(18, speed); //parks in the submersible zone
+        sleep(rest);
     }
     private void sleep() {
     }

@@ -73,6 +73,10 @@ public class Johnny6 {
 
     static final double X_INCH_TICKS = 40;
 
+    static final double X_DEGREE_TICKS = 40; //may need to be changed
+
+    static final double Y_DEGREE_TICKS = 40; //may need to be changed
+
     public Johnny6(OpMode opmode, Drivetrain drivetrain) {
 
         this.teleop = opmode;
@@ -481,8 +485,30 @@ public class Johnny6 {
     public void moveLeftInches(double inches, double speed) {
 
         moveRightInches(-inches, -speed);
+    }
+
+    public void turnRightDegrees(double degrees, double speed) {
+        int tickTarget = (int) Math.round(degrees * X_DEGREE_TICKS);
+
+        resetDriveEncoders();
+
+        for (DcMotor x : allDriveMotors) {
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+
+        move(speed, 0, 1);
+
+        waitForMotors();
+
+        resetDriveEncoders();
 
     }
+
+    public void turnLeftDegrees(double degrees, double speed) {
+        turnRightDegrees(-degrees, -speed);
+    }
+
 
     public void waitForMotors() {
         boolean finished = false;
