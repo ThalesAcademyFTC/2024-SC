@@ -369,9 +369,9 @@ public class Johnny6 {
 
     public void bucketDump() {bucketServo.setPosition(0.1);}
     //This is for the claw
-    public void clawClose(){clawServo.setPosition(0.7);}
+    public void clawClose(){clawServo.setPosition(-0.5);}
 
-    public void clawOpen(){clawServo.setPosition(0.3);}
+    public void clawOpen(){clawServo.setPosition(0.2);}
     //For the bottom slide sensor
 
 
