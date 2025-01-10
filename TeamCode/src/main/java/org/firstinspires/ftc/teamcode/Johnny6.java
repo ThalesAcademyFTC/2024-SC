@@ -366,8 +366,8 @@ public class Johnny6 {
 
     //This is for the bucket(Obviously)
     public void bucketPrimed() {bucketServo.setPosition(0.4);}
-
-    public void bucketDump() {bucketServo.setPosition(0.1);}
+    public void bucketLoad() {bucketServo.setPosition(0.5);}
+    public void bucketDump() {bucketServo.setPosition(0.175);}
     //This is for the claw
     public void clawClose(){clawServo.setPosition(-0.5);}
 
@@ -384,6 +384,15 @@ public class Johnny6 {
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             x.setPower(0.5);
         }
+    }
+    public void slideLow(){
+        slideTo(0);
+    }
+    public void slideMedium(){
+        slideTo(60);
+    }
+    public void slideHigh(){
+        slideTo(110);
     }
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}

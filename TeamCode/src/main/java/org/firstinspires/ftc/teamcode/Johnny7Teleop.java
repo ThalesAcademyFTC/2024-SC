@@ -75,8 +75,10 @@ public class Johnny7Teleop extends OpMode {
                 }
 
                 //Bucket code
-                if(gamepad2.a) {
+                if(gamepad2.right_bumper) {
                     johnny7.bucketDump();
+                } else if (gamepad2.left_bumper){
+                    johnny7.bucketLoad();
                 } else {
                     johnny7.bucketPrimed();
                 }
@@ -92,14 +94,14 @@ public class Johnny7Teleop extends OpMode {
             //This is the code for making the viper slides go up and down
             if(gamepad2.dpad_up&&!slidingUp) {
                 slidingUp = true;
-                johnny7.slideTo(50);
-            }
-            else if(gamepad2.dpad_down) {
-                johnny7.slideTo(0);
+                johnny7.slideHigh();
             }
             else if(gamepad2.dpad_right&&!slidingUp) {
                 slidingUp = true;
-                johnny7.slideTo(15);
+                johnny7.slideMedium();
+            }
+            else if(gamepad2.dpad_down) {
+                johnny7.slideLow();
             }
             else {
                 johnny7.rest();
