@@ -36,15 +36,7 @@ public class Johnny7Teleop extends OpMode {
         int isPrimed=0;
 
         //telemetry
-        telemetry.addData("sensor state", johnny7.bottomSensor.isPressed());
-        telemetry.addData("slide motor 1 encoder:",johnny7.slideMotor1.getCurrentPosition());
-        telemetry.addData("slide 1 target", johnny7.slideMotor1.getTargetPosition());
-        telemetry.addData("slide motor 2 encoder: ",johnny7.slideMotor2.getCurrentPosition());
-        telemetry.addData("slide 2 target", johnny7.slideMotor2.getTargetPosition());
-        telemetry.addData("front left encoder:", johnny7.motorFrontLeft.getCurrentPosition());
-        telemetry.addData("front right encoder:", johnny7.motorFrontRight.getCurrentPosition());
-        telemetry.addData("back left encoder:", johnny7.motorBackLeft.getCurrentPosition());
-        telemetry.addData("back right encoder:", johnny7.motorBackRight.getCurrentPosition());
+
         telemetry.update();
     //remember, y is the opposite on the axis
         y*=y;
@@ -66,9 +58,9 @@ public class Johnny7Teleop extends OpMode {
         johnny7.move(x,y,turn);
 
                 //Move claw arm
-                if(gamepad2.left_trigger > 0) {
+                if(gamepad2.right_trigger > 0) {
                     johnny7.moveClaw(gamepad2.left_trigger*1);
-                } else if(gamepad2.right_trigger > 0) {
+                } else if(gamepad2.left_trigger > 0) {
                     johnny7.moveClaw(-gamepad2.right_trigger*1);
                 } else {
                     johnny7.moveClaw(0);

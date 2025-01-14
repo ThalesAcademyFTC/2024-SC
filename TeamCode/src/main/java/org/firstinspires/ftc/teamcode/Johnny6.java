@@ -42,11 +42,12 @@ public class Johnny6 {
 
     //Definitions for global variables
 
-    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, clawMotor;
-    public DcMotorEx slideMotor1, slideMotor2;
+    public DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
+    public DcMotorEx slideMotor1, slideMotor2, clawMotor;
     //[] means array
     public DcMotor[] allDriveMotors;
     public DcMotorEx[] allSlideMotors;
+
 
     //Outreach robot servos
     public Servo lockServo;
@@ -129,7 +130,8 @@ public class Johnny6 {
                 motorBackRight = hwMap.dcMotor.get("motorBackRight");
                 slideMotor1 = hwMap.get(DcMotorEx.class,"slideMotor1");
                 slideMotor2 = hwMap.get(DcMotorEx.class,"slideMotor2");
-                clawMotor = hwMap.dcMotor.get("clawMotor");
+                clawMotor = hwMap.get(DcMotorEx.class,"clawMotor");
+                //clawMotor = hwMap.dcMotor.get("clawMotor");
                 bucketServo = hwMap.servo.get("bucketServo");
                 clawServo = hwMap.servo.get("clawServo");
 
@@ -264,6 +266,15 @@ public class Johnny6 {
                 telem.addLine("frontRight: " + frontRightPower);
                 telem.addLine("backLeft: " + backLeftPower);
                 telem.addLine("backRight: " + backRightPower);
+                telem.addData("sensor state", bottomSensor.isPressed());
+                telem.addData("slide motor 1 encoder:",slideMotor1.getCurrentPosition());
+                telem.addData("slide motor 2 encoder: ",slideMotor2.getCurrentPosition());
+                telem.addData("slide 1 target", slideMotor1.getTargetPosition());
+                telem.addData("slide 2 target", slideMotor2.getTargetPosition());
+                telem.addData("front left encoder:", motorFrontLeft.getCurrentPosition());
+                telem.addData("front right encoder:", motorFrontRight.getCurrentPosition());
+                telem.addData("back left encoder:", motorBackLeft.getCurrentPosition());
+                telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
 
                 //Assign that motor power to each motor
                 motorFrontLeft.setPower(frontLeftPower);
@@ -385,6 +396,15 @@ public class Johnny6 {
             x.setPower(0.5);
         }
     }
+
+    public void rotateTo(double degrees){
+        int tickTarget = (int) Math.round(degrees * Y_DEGREE_TICKS);
+        for(DcMotorEx x:clawMotor){
+            x.setTargetPosition(tickTarget);
+            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            x.setPower(0.5);
+        }
+    }
     public void slideLow(){
         slideTo(0);
     }
@@ -394,6 +414,8 @@ public class Johnny6 {
     public void slideHigh(){
         slideTo(110);
     }
+
+    public void rotateDropPosition() {};
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
@@ -529,6 +551,7 @@ public class Johnny6 {
                     telem.addData("back right encoder:", motorBackRight.getCurrentPosition());
                     telem.addData("slide motor 1 encoder:",slideMotor1.getCurrentPosition());
                     telem.addData("slide motor 2 encoder: ",slideMotor2.getCurrentPosition());
+
                     telem.update();
                 } else {
                     finished = true;
