@@ -386,10 +386,7 @@ public class Johnny6 {
     //For the bottom slide sensor
 
 
-    public void slideTo(double inches){
-        int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
-        //slideMotor1.setTargetPosition(2000);
-        //slideMotor2.setTargetPosition(2000);
+    public void slideTo(int tickTarget){
         for(DcMotorEx x:allSlideMotors){
             x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -409,10 +406,10 @@ public class Johnny6 {
         slideTo(0);
     }
     public void slideMedium(){
-        slideTo(60);
+        slideTo(2400);
     }
     public void slideHigh(){
-        slideTo(110);
+        slideTo(4400);
     }
 
     public void rotateDropPosition() {};
@@ -582,9 +579,10 @@ public class Johnny6 {
             x.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
-    private void resetSlideEncoders(){
+    public void resetSlideEncoders(){
         for (DcMotorEx x:allSlideMotors){
             x.setPower(0);
+            x.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             x.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         }
     }

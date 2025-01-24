@@ -30,11 +30,11 @@ public class AutonRightRed extends LinearOpMode {
         sleep(rest);
         johnny7.moveForwardInches(5, speed); //get closer to the buckets
         sleep(rest);
-        johnny7.slideTo(50); //raise arm up to the high bucket
+        johnny7.slideHigh(); //raise arm up to the high bucket
         sleep(rest);
         johnny7.bucketDump(); //dump specimen
         sleep(rest);
-        johnny7.slideTo(0); //lower arm
+        johnny7.slideLow(); //lower slide
         sleep(rest);
         johnny7.moveBackwardInches(5, speed); //move away from buckets
         sleep(rest);

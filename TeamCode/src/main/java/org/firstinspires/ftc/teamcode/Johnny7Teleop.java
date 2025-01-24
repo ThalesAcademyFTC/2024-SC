@@ -9,7 +9,8 @@ public class Johnny7Teleop extends OpMode {
 
     //allows driver customization
     static final double STRAFE_FACTOR=1.1;
-
+    boolean bottomSensorPressed = false;
+    boolean slidingUp = false;
 
     @Override
     public void init(){
@@ -23,24 +24,12 @@ public class Johnny7Teleop extends OpMode {
     public void loop(){
         double y=gamepad1.left_stick_y;
         double x=gamepad1.left_stick_x;
-        boolean bottomSensorPressed = false;
-        boolean dpadDownPressed=false;
-        boolean dpadDownProcessed=false;
-        boolean isUp=false;
-        boolean isDown;
-         boolean motorToggle = false;
-         boolean lastButtonState = false;
-        boolean isBumperPressed= false;
-        boolean isBumperProcessed = false;
-        boolean isClawOpen=false;
-        boolean slidingUp = false;
-        int isPrimed=0;
 
         //telemetry
 
         telemetry.update();
     //remember, y is the opposite on the axis
-        y*=y;
+            y*=y;
             if (gamepad1.left_stick_y > 0){
                     y = -y;
             }
@@ -62,7 +51,7 @@ public class Johnny7Teleop extends OpMode {
                 if(gamepad2.right_trigger > 0) {
                     johnny7.moveClaw(gamepad2.right_trigger*1);
                 } else if(gamepad2.left_trigger > 0) {
-                    johnny7.moveClaw(-gamepad2.left_trigger*1);
+                    johnny7.moveClaw(-gamepad2.left_trigger *1);
                 } else {
                     johnny7.moveClaw(0);
                 }
@@ -85,27 +74,23 @@ public class Johnny7Teleop extends OpMode {
             }
 
             //This is the code for making the viper slides go up and down
-            if(gamepad2.dpad_up&&!slidingUp) {
-                slidingUp = true;
+            if(gamepad2.dpad_up) {
                 johnny7.slideHigh();
             }
-            else if(gamepad2.dpad_right&&!slidingUp) {
-                slidingUp = true;
+            else if(gamepad2.dpad_right) {
                 johnny7.slideMedium();
             }
             else if(gamepad2.dpad_down) {
                 johnny7.slideLow();
             }
-            else {
-                johnny7.rest();
-            }
 
             //touch sensor code
             if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){
                 bottomSensorPressed=true;
-                if(bottomSensorPressed){
-                    johnny7.stopBottomSlide();
-                }
+                johnny7.stopBottomSlide();
+                johnny7.resetSlideEncoders();
+            } else {
+                bottomSensorPressed=false;
             }
 
     }
