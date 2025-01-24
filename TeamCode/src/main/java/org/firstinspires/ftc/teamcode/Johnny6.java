@@ -399,11 +399,11 @@ public class Johnny6 {
 
     public void rotateTo(double degrees){
         int tickTarget = (int) Math.round(degrees * Y_DEGREE_TICKS);
-        for(DcMotorEx x:clawMotor){
-            x.setTargetPosition(tickTarget);
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            x.setPower(0.5);
-        }
+
+            clawMotor.setTargetPosition(tickTarget);
+            clawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            clawMotor.setPower(0.5);
+
     }
     public void slideLow(){
         slideTo(0);

@@ -16,6 +16,7 @@ public class Johnny7Teleop extends OpMode {
         johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);
         johnny7.bucketPrimed();
         johnny7.clawClose();
+
     }
 
     @Override
@@ -59,9 +60,9 @@ public class Johnny7Teleop extends OpMode {
 
                 //Move claw arm
                 if(gamepad2.right_trigger > 0) {
-                    johnny7.moveClaw(gamepad2.left_trigger*1);
+                    johnny7.moveClaw(gamepad2.right_trigger*1);
                 } else if(gamepad2.left_trigger > 0) {
-                    johnny7.moveClaw(-gamepad2.right_trigger*1);
+                    johnny7.moveClaw(-gamepad2.left_trigger*1);
                 } else {
                     johnny7.moveClaw(0);
                 }

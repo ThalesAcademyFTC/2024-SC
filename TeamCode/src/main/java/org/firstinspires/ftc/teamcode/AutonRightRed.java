@@ -10,6 +10,8 @@ public class AutonRightRed extends LinearOpMode {
 
     private ElapsedTime runtime=new ElapsedTime();
 
+
+
     @Override
     public void runOpMode() {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
@@ -60,6 +62,8 @@ public class AutonRightRed extends LinearOpMode {
         sleep(rest);
         johnny7.moveRightInches(18, speed); //parks in the submersible zone
         sleep(rest);
+
+
     }
     private void sleep() {
     }
