@@ -83,6 +83,9 @@ public class Johnny7Teleop extends OpMode {
             else if(gamepad2.dpad_down) {
                 johnny7.slideLow();
             }
+            else if(gamepad2.dpad_left) {
+                johnny7.slideHang();
+            }
 
             //touch sensor code
             if(johnny7.isBottomSensorPressed()&&!bottomSensorPressed){

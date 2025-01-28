@@ -394,14 +394,20 @@ public class Johnny6 {
         }
     }
 
-    public void rotateTo(double degrees){
+    /*public void rotateTo(double degrees){
         int tickTarget = (int) Math.round(degrees * Y_DEGREE_TICKS);
-
             clawMotor.setTargetPosition(tickTarget);
             clawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             clawMotor.setPower(0.5);
 
-    }
+    }*/
+
+    public void rotateTo(int tickTarget){
+            clawMotor.setTargetPosition(tickTarget);
+            clawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            clawMotor.setPower(0.5);
+    };
+
     public void slideLow(){
         slideTo(0);
     }
@@ -411,6 +417,10 @@ public class Johnny6 {
     public void slideHigh(){
         slideTo(4400);
     }
+    public void slideHang(){slideTo(3000);}
+    public void rotatePickUp(){rotateTo(-1000);}
+    public void rotateDropOff(){rotateTo(1000);}
+    public void rotateCLip(){rotateTo(500);}
 
     public void rotateDropPosition() {};
 
