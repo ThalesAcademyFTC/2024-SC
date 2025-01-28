@@ -45,7 +45,7 @@ public class Johnny7Teleop extends OpMode {
                 turn = turn / 3;
             }
 
-        johnny7.move(x,y,turn);
+            johnny7.move(x,y,turn);
 
                 //Move claw arm
                 if(gamepad2.right_trigger > 0) {
