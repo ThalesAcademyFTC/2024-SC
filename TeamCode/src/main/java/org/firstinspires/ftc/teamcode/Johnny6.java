@@ -135,6 +135,7 @@ public class Johnny6 {
                 bucketServo = hwMap.servo.get("bucketServo");
                 clawServo = hwMap.servo.get("clawServo");
 
+
                 //slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 //slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -535,7 +536,7 @@ public class Johnny6 {
 
         }
 
-        move(speed, 0, 1);
+        move(0, 0, speed);
 
         waitForMotors();
 

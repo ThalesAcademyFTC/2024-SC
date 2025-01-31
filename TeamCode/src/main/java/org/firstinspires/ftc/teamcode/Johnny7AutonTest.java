@@ -16,8 +16,10 @@ public class Johnny7AutonTest extends LinearOpMode {
     @Override
     public void runOpMode() {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
+        johnny7.bucketPrimed();
+        johnny7.clawClose();
         double speed=0.5;
-        int rest=100;
+        int rest=200;
 
         waitForStart();
         runtime.reset();
@@ -31,9 +33,15 @@ public class Johnny7AutonTest extends LinearOpMode {
         sleep(rest);
         johnny7.slideHigh(); //raise arm up to the high bucket
         sleep(rest);
-        johnny7.bucketDump(); //dump specimen
+        johnny7.waitForSlideMotors();
         sleep(rest);
-        johnny7.slideLow(); //lower slide
+        johnny7.bucketDump(); //dump specimen
+        sleep(1000);
+        johnny7.bucketPrimed();
+        sleep(rest);
+        johnny7.moveForwardInches(3,speed);
+        sleep(rest);
+        johnny7.slideLow();
         sleep(rest);
 
     }

@@ -16,6 +16,9 @@ public class AutonRightRed extends LinearOpMode {
     public void runOpMode() {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
         runtime.reset();
+        johnny7.bucketPrimed();
+        johnny7.clawClose();
+        johnny7.slideLow();
         double speed = 0.5;
         int rest = 100;
 
