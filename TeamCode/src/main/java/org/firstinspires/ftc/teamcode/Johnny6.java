@@ -70,9 +70,9 @@ public class Johnny6 {
 
     //Put any CONSTANTS here
 
-    static final double Y_INCH_TICKS = 40;
+    static final double Y_INCH_TICKS = 45;
 
-    static final double X_INCH_TICKS = 40;
+    static final double X_INCH_TICKS = 45;
 
     static final double X_DEGREE_TICKS = 40; //may need to be changed
 
