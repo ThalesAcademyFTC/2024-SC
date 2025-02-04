@@ -74,9 +74,9 @@ public class Johnny6 {
 
     static final double X_INCH_TICKS = 45;
 
-    static final double X_DEGREE_TICKS = 40; //may need to be changed
+    static final double X_DEGREE_TICKS = 11.4; //may need to be changed
 
-    static final double Y_DEGREE_TICKS = 40; //may need to be changed
+    static final double Y_DEGREE_TICKS = 11.4; //may need to be changed
 
     public Johnny6(OpMode opmode, Drivetrain drivetrain) {
 
@@ -396,23 +396,13 @@ public class Johnny6 {
         }
     }
 
-    /*public void rotateTo(double degrees){
-        int tickTarget = (int) Math.round(degrees * Y_DEGREE_TICKS);
-            clawMotor.setTargetPosition(tickTarget);
-            clawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            clawMotor.setPower(0.5);
-
-    }*/
-
     public void rotateTo(int tickTarget){
             clawMotor.setTargetPosition(tickTarget);
             clawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             clawMotor.setPower(0.5);
     };
 
-    public void slideLow(){
-        slideTo(25);
-    }
+    public void slideLow(){slideTo(25);}
     public void slideMedium(){
         slideTo(2400);
     }
@@ -420,11 +410,9 @@ public class Johnny6 {
         slideTo(4400);
     }
     public void slideHang(){slideTo(3000);}
-    public void rotatePickUp(){rotateTo(-1000);}
-    public void rotateDropOff(){rotateTo(1000);}
-    public void rotateCLip(){rotateTo(500);}
-
-    public void rotateDropPosition() {};
+    public void initClip(){rotateTo(3000);}
+    public void readyToClip(){rotateTo(2000);}
+    public void actuallyClip(){rotateTo(2200);}
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
@@ -472,23 +460,6 @@ public class Johnny6 {
     private void resetClawMotor() {
     }
 
-
-    /*public void moveSlideMotors(double ticks, double speed){
-
-        resetSlideEncoders();
-
-        for (DcMotor x:allSlideMotors){
-            //x.setTargetPosition();
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        }
-
-        slideMotor1.setPower(0);
-
-
-
-    }*/
-
     public void moveBackwardInches(double inches, double speed) {
 
         moveForwardInches(-inches, -speed);
@@ -532,9 +503,15 @@ public class Johnny6 {
 
         resetDriveEncoders();
 
+        motorFrontLeft.setTargetPosition(tickTarget);
+        motorFrontRight.setTargetPosition(-tickTarget);
+        motorBackLeft.setTargetPosition(tickTarget);
+        motorBackRight.setTargetPosition(-tickTarget);
+
         for (DcMotor x : allDriveMotors) {
-            x.setTargetPosition(tickTarget);
+
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         }
 
         move(0, 0, speed);
@@ -577,6 +554,17 @@ public class Johnny6 {
                 telem.addData("slide motor 2 encoder: ",slideMotor2.getCurrentPosition());
                 telem.addData("slide 2 target", slideMotor2.getTargetPosition());
                 telem.update();
+            } else {
+                finished = true;
+            }
+        }
+    }
+
+    public void waitForClawMotor() {
+        boolean finished = false;
+        while (!finished) {
+            if(clawMotor.isBusy()) {
+                telem.addData("claw motor: ", clawMotor.getCurrentPosition());
             } else {
                 finished = true;
             }

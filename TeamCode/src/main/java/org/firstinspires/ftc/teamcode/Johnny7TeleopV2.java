@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -60,9 +60,9 @@ public class Johnny7TeleopV2 extends OpMode {
 
         //Move claw arm with encoders
         if (gamepad2.a) {
-            johnny7.rotatePickUp();
+            johnny7.readyToClip();
         } else if (gamepad2.y) {
-            johnny7.rotateDropOff();
+
             johnny7.bucketLoad();
         }
 
@@ -103,4 +103,4 @@ public class Johnny7TeleopV2 extends OpMode {
         }
 
     }
-}
+}*/

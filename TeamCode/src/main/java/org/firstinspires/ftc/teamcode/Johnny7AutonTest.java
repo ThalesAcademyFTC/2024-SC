@@ -18,19 +18,15 @@ public class Johnny7AutonTest extends LinearOpMode {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
         runtime.reset();
         johnny7.bucketInit();
+        johnny7.initClip();
         johnny7.clawClose();
         johnny7.slideLow();
         double speed=0.5;
         int rest=100;
 
-        waitForStart(); //not working :(
+        waitForStart();
         runtime.reset();
-        johnny7.moveForwardInches(5, speed);
-        sleep(rest);
-        johnny7.turnLeftDegrees(90, speed);
-        sleep(rest);
         johnny7.turnRightDegrees(90, speed);
         sleep(rest);
-
     }
 }
