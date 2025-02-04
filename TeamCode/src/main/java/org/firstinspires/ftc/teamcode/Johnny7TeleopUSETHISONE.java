@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="Johnny7Teleop")
-public class Johnny7Teleop extends OpMode {
+@TeleOp(name="Johnny7TeleopUSETHISONE")
+public class Johnny7TeleopUSETHISONE extends OpMode {
     Johnny6 johnny7;
 
     //allows driver customization
@@ -15,7 +14,7 @@ public class Johnny7Teleop extends OpMode {
     @Override
     public void init(){
         johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);
-        johnny7.bucketPrimed();
+        johnny7.bucketInit();
         johnny7.clawClose();
 
     }
@@ -62,7 +61,7 @@ public class Johnny7Teleop extends OpMode {
                 } else if (gamepad2.left_bumper){
                     johnny7.bucketLoad();
                 } else {
-                    johnny7.bucketPrimed();
+                    johnny7.bucketSteady();
                 }
 
             //Claw code: may need to be changed

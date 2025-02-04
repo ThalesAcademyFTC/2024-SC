@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="Johnny7TeleopV2")
+@Disabled
 public class Johnny7TeleopV2 extends OpMode {
     Johnny6 johnny7;
 
@@ -15,7 +17,7 @@ public class Johnny7TeleopV2 extends OpMode {
     @Override
     public void init() {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
-        johnny7.bucketPrimed();
+        johnny7.bucketInit();
         johnny7.clawClose();
 
     }
@@ -69,9 +71,9 @@ public class Johnny7TeleopV2 extends OpMode {
             johnny7.bucketDump();
         } else if (gamepad2.left_bumper) {
             johnny7.bucketLoad();
-        } else {
-            johnny7.bucketPrimed();
         }
+
+
 
         //Claw code: may need to be changed
         if (gamepad2.x) {

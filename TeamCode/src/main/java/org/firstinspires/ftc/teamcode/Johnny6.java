@@ -377,8 +377,9 @@ public class Johnny6 {
     //public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
 
     //This is for the bucket(Obviously)
-    public void bucketPrimed() {bucketServo.setPosition(0.4);}
-    public void bucketLoad() {bucketServo.setPosition(0.5);}
+    public void bucketInit() {bucketServo.setPosition(0.58);}
+    public void bucketSteady() {bucketServo.setPosition(0.44);}
+    public void bucketLoad() {bucketServo.setPosition(0.55);}
     public void bucketDump() {bucketServo.setPosition(0.175);}
     //This is for the claw
     public void clawClose(){clawServo.setPosition(-0.5);}
@@ -410,7 +411,7 @@ public class Johnny6 {
     };
 
     public void slideLow(){
-        slideTo(0);
+        slideTo(25);
     }
     public void slideMedium(){
         slideTo(2400);
@@ -532,8 +533,8 @@ public class Johnny6 {
         resetDriveEncoders();
 
         for (DcMotor x : allDriveMotors) {
+            x.setTargetPosition(tickTarget);
             x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
         }
 
         move(0, 0, speed);
