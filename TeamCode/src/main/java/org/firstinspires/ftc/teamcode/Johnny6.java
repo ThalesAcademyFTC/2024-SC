@@ -411,8 +411,8 @@ public class Johnny6 {
     }
     public void slideHang(){slideTo(3000);}
     public void initClip(){rotateTo(3000);}
-    public void readyToClip(){rotateTo(2000);}
-    public void actuallyClip(){rotateTo(2200);}
+    public void readyToClip(){rotateTo(2000);} //position underneth the bar so that the arm can clip
+    public void actuallyClip(){rotateTo(2200);}// position that moves the arm so that the specimen can be clipped
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
