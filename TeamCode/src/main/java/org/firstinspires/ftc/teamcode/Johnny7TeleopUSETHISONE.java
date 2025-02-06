@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="Johnny7TeleopUSETHISONE")
 public class Johnny7TeleopUSETHISONE extends OpMode {
@@ -14,9 +15,14 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
     @Override
     public void init(){
         johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);
-        johnny7.bucketInit();
+        johnny7.initClip();
         johnny7.clawClose();
 
+    }
+
+    @Override
+    public void start(){
+        johnny7.clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override
@@ -50,19 +56,11 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
                 if(gamepad2.right_trigger > 0) {
                     johnny7.moveClaw(gamepad2.right_trigger*1);
                 } else if(gamepad2.left_trigger > 0) {
-                    johnny7.moveClaw(-gamepad2.left_trigger *1);
+                    johnny7.moveClaw(-gamepad2.left_trigger*1);
                 } else {
                     johnny7.moveClaw(0);
                 }
 
-                //Bucket code
-                if(gamepad2.right_bumper) {
-                    johnny7.bucketDump();
-                } else if (gamepad2.left_bumper){
-                    johnny7.bucketLoad();
-                } else {
-                    johnny7.bucketSteady();
-                }
 
             //Claw code: may need to be changed
             if(gamepad2.x){

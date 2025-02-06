@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class MainAutonRight extends LinearOpMode {
+public class MainAutonLeft extends LinearOpMode {
     private Johnny6 johnny7;
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -15,7 +15,7 @@ public class MainAutonRight extends LinearOpMode {
     public void runOpMode() {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
         runtime.reset();
-        //johnny7.bucketInit();
+
         johnny7.initClip();
         johnny7.clawClose();
         johnny7.slideLow();
@@ -23,19 +23,25 @@ public class MainAutonRight extends LinearOpMode {
         int rest = 100;
 
 
+
         waitForStart();
-        runtime.reset();// start on right side with preloaded clipped sample
-        johnny7.readyToClip();//ready to get the specimen in the right position for clipping
+        runtime.reset();
+        //Whips out the "arm"
+        johnny7.readyToClip();
         sleep(rest);
         johnny7.waitForClawMotor();
         sleep(rest);
-        johnny7.moveForwardInches(24,speed); //move forward towards submersible zone
+        johnny7.moveLeftInches(24,speed);
         sleep(rest);
-        johnny7.actuallyClip();// actually clip onto the high bar because of methane
+        johnny7.moveForwardInches(24,speed);
         sleep(rest);
-        johnny7.clawOpen();// open claw so that we can move backward
+        johnny7.actuallyClip();
         sleep(rest);
-        johnny7.moveBackwardInches(10,speed);// move back a little bit so that we can move left
+        johnny7.waitForClawMotor();
+        sleep(rest);
+        johnny7.clawOpen();
+        sleep(rest);
+        johnny7.moveBackwardInches(10,speed);
         sleep(rest);
         johnny7.moveLeftInches(24,speed);//actually move left so that we can get closer to the 3 alliance specific sample
         sleep(rest);

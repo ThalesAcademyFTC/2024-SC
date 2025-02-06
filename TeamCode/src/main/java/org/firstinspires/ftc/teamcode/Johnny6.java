@@ -59,7 +59,6 @@ public class Johnny6 {
     public TouchSensor bottomSensor;
 
     public Servo clawServo;
-    public Servo bucketServo;
 
     //public CRServo //future necessary robot functions using servos
     private IMU imu;
@@ -131,11 +130,12 @@ public class Johnny6 {
                 slideMotor1 = hwMap.get(DcMotorEx.class,"slideMotor1");
                 slideMotor2 = hwMap.get(DcMotorEx.class,"slideMotor2");
                 clawMotor = hwMap.get(DcMotorEx.class,"clawMotor");
-                //clawMotor = hwMap.dcMotor.get("clawMotor");
-                bucketServo = hwMap.servo.get("bucketServo");
+
                 clawServo = hwMap.servo.get("clawServo");
 
-
+                clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 //slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 //slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -377,12 +377,9 @@ public class Johnny6 {
     //public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
 
     //This is for the bucket(Obviously)
-    public void bucketInit() {bucketServo.setPosition(0.58);}
-    public void bucketSteady() {bucketServo.setPosition(0.44);}
-    public void bucketLoad() {bucketServo.setPosition(0.55);}
-    public void bucketDump() {bucketServo.setPosition(0.175);}
+
     //This is for the claw
-    public void clawClose(){clawServo.setPosition(-0.5);}
+    public void clawClose(){clawServo.setPosition(0.03);}
 
     public void clawOpen(){clawServo.setPosition(0.2);}
     //For the bottom slide sensor
@@ -399,26 +396,26 @@ public class Johnny6 {
     public void rotateTo(int tickTarget){
             clawMotor.setTargetPosition(tickTarget);
             clawMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            clawMotor.setPower(0.5);
+            clawMotor.setPower(1);
     };
 
-    public void slideLow(){slideTo(25);}
+    public void slideLow(){slideTo(0);}
     public void slideMedium(){
-        slideTo(2400);
+        slideTo(2000);
     }
     public void slideHigh(){
-        slideTo(4400);
+        slideTo(4000);
     }
     public void slideHang(){slideTo(3000);}
-    public void initClip(){rotateTo(3000);}
-    public void readyToClip(){rotateTo(2000);} //position underneth the bar so that the arm can clip
-    public void actuallyClip(){rotateTo(2200);}// position that moves the arm so that the specimen can be clipped
+    public void initClip(){rotateTo(-1000);}
+    public void readyToClip(){rotateTo(1000);} //position underneth the bar so that the arm can clip
+    public void actuallyClip(){rotateTo(500);}// position that moves the arm so that the specimen can be clipped
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
 
         //Converts to integer by rounding. CASTS to int after rounding.
-        int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
+        int tickTarget = (int) Math.round(-inches * Y_INCH_TICKS);
 
         resetDriveEncoders();
 
@@ -429,7 +426,7 @@ public class Johnny6 {
 
         }
 
-        move(0, speed, 0);
+        move(0, -speed, 0);
 
         waitForMotors();
 
