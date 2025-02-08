@@ -133,7 +133,7 @@ public class Johnny6 {
 
                 clawServo = hwMap.servo.get("clawServo");
 
-                clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+               // clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 //slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -401,15 +401,15 @@ public class Johnny6 {
 
     public void slideLow(){slideTo(0);}
     public void slideMedium(){
-        slideTo(2000);
+        slideTo(1500);
     }
     public void slideHigh(){
         slideTo(4000);
     }
     public void slideHang(){slideTo(3000);}
-    public void initClip(){rotateTo(-1000);}
-    public void readyToClip(){rotateTo(1000);} //position underneth the bar so that the arm can clip
-    public void actuallyClip(){rotateTo(500);}// position that moves the arm so that the specimen can be clipped
+    public void restClip(){rotateTo(-2500);}
+    public void readyToClip(){rotateTo(3000);} //position underneth the bar so that the arm can clip
+    public void actuallyClip(){rotateTo(2500);}// position that moves the arm so that the specimen can be clipped
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
@@ -439,6 +439,9 @@ public class Johnny6 {
     {
         clawMotor.setPower(speed);
     }
+        //telem.addData("claw motor position: ", clawMotor.getCurrentPosition());
+        //telem.update();
+
     public void moveClawMotor(double inches, double speed){
         int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);
 
@@ -454,8 +457,6 @@ public class Johnny6 {
         resetClawMotor();
     }
 
-    private void resetClawMotor() {
-    }
 
     public void moveBackwardInches(double inches, double speed) {
 
@@ -469,7 +470,7 @@ public class Johnny6 {
         int tickTarget = (int) Math.round(inches * X_INCH_TICKS);
 
         resetDriveEncoders();
-        //
+
         motorFrontLeft.setTargetPosition(tickTarget);
         motorFrontRight.setTargetPosition(-tickTarget);
         motorBackLeft.setTargetPosition(-tickTarget);
@@ -583,4 +584,11 @@ public class Johnny6 {
             x.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
+
+    public void resetClawMotor() {
+        clawMotor.setPower(0);
+        clawMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
 }

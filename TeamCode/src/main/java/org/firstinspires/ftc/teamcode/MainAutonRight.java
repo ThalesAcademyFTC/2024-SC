@@ -15,8 +15,8 @@ public class MainAutonRight extends LinearOpMode {
     public void runOpMode() {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
         runtime.reset();
-        //johnny7.bucketInit();
-        johnny7.initClip();
+
+       // johnny7.initClip();
         johnny7.clawClose();
         johnny7.slideLow();
         double speed = 0.5;
@@ -41,22 +41,19 @@ public class MainAutonRight extends LinearOpMode {
         sleep(rest);
         johnny7.moveForwardInches(34,speed);// get closer to the samples
         sleep(rest);
-        johnny7.turnRightDegrees(180,speed);//face the samples
-        sleep(rest);
-        //johnny7.moveLeftInches(); move a little bit to the left so that we can be in the optimal position for moving one into the human player zone
+        johnny7.moveLeftInches(10,speed); // move a little bit to the left so that we can be in the optimal position for moving one into the human player zone
         sleep(rest);
         johnny7.moveForwardInches(48,speed);// move the sample
         sleep(rest);
         johnny7.moveBackwardInches(48,speed);//move back so that move next sample
         sleep(rest);
-        //johnny7.moveLeftInches();// move a bit to the left so that we can move the next sample
+        johnny7.moveLeftInches(10,speed);// move a bit to the left so that we can move the next sample
         sleep(rest);
         johnny7.moveForwardInches(48,speed);// move the sample
         sleep(rest);
         johnny7.moveBackwardInches(48,speed);//move back so that move next sample
         sleep(rest);
-        sleep(rest);
-        //johnny7.moveLeftInches(); move a little bit to the left so that we can be in the optimal position for moving one into the human player zone
+        johnny7.moveLeftInches(10,speed);// move a little bit to the left so that we can be in the optimal position for moving one into the human player zone
         sleep(rest);
         johnny7.moveForwardInches(48,speed);// move the sample then park there
         sleep(rest);

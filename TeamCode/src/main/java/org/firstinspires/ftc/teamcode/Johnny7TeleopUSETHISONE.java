@@ -15,9 +15,10 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
     @Override
     public void init(){
         johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);
-        johnny7.initClip();
-        johnny7.clawClose();
-
+        //johnny7.initClip();
+        //johnny7.clawClose();
+        johnny7.resetSlideEncoders();
+        johnny7.resetClawMotor();
     }
 
     @Override
@@ -33,6 +34,7 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
         //telemetry
 
         telemetry.update();
+
     //remember, y is the opposite on the axis
             y*=y;
             if (gamepad1.left_stick_y > 0){
@@ -53,10 +55,10 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
             johnny7.move(x,y,turn);
 
                 //Move claw arm
-                if(gamepad2.right_trigger > 0) {
-                    johnny7.moveClaw(gamepad2.right_trigger*1);
-                } else if(gamepad2.left_trigger > 0) {
-                    johnny7.moveClaw(-gamepad2.left_trigger*1);
+                if(gamepad2.left_trigger > 0) {
+                    johnny7.moveClaw(gamepad2.left_trigger*1);
+                } else if(gamepad2.right_trigger > 0) {
+                    johnny7.moveClaw(-gamepad2.right_trigger*1);
                 } else {
                     johnny7.moveClaw(0);
                 }

@@ -16,7 +16,7 @@ public class MainAutonLeft extends LinearOpMode {
         johnny7 = new Johnny6(this, Johnny6.Drivetrain.JOHNNY6);
         runtime.reset();
 
-        johnny7.initClip();
+       // johnny7.initClip();
         johnny7.clawClose();
         johnny7.slideLow();
         double speed = 0.5;
