@@ -56,9 +56,9 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
 
                 //Move claw arm
                 if(gamepad2.left_trigger > 0) {
-                    johnny7.moveClaw(gamepad2.left_trigger*1);
+                    johnny7.moveClaw(gamepad2.left_trigger*.5);
                 } else if(gamepad2.right_trigger > 0) {
-                    johnny7.moveClaw(-gamepad2.right_trigger*1);
+                    johnny7.moveClaw(-gamepad2.right_trigger*.5);
                 } else {
                     johnny7.moveClaw(0);
                 }
@@ -73,6 +73,7 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
             }
 
             //This is the code for making the viper slides go up and down
+
             if(gamepad2.dpad_up) {
                 johnny7.slideHigh();
             }

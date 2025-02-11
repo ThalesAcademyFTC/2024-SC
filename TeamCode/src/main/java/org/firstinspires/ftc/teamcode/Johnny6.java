@@ -73,9 +73,9 @@ public class Johnny6 {
 
     static final double X_INCH_TICKS = 45;
 
-    static final double X_DEGREE_TICKS = 11.4; //may need to be changed
+    static final double X_DEGREE_TICKS = 11.1; //may need to be changed
 
-    static final double Y_DEGREE_TICKS = 11.4; //may need to be changed
+    static final double Y_DEGREE_TICKS = 11.1; //may need to be changed
 
     public Johnny6(OpMode opmode, Drivetrain drivetrain) {
 
@@ -130,14 +130,13 @@ public class Johnny6 {
                 slideMotor1 = hwMap.get(DcMotorEx.class,"slideMotor1");
                 slideMotor2 = hwMap.get(DcMotorEx.class,"slideMotor2");
                 clawMotor = hwMap.get(DcMotorEx.class,"clawMotor");
-
                 clawServo = hwMap.servo.get("clawServo");
 
                // clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                //slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                //slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                slideMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
                 motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
                 motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -376,20 +375,17 @@ public class Johnny6 {
     public void slideUp() {slideMotor1.setPower(1); slideMotor2.setPower(1);}
     //public void slideDown() {slideMotor1.setPower(-1); slideMotor2.setPower(-1);}
 
-    //This is for the bucket(Obviously)
 
     //This is for the claw
-    public void clawClose(){clawServo.setPosition(0.03);}
+    public void clawClose(){clawServo.setPosition(0.02);}
 
     public void clawOpen(){clawServo.setPosition(0.2);}
-    //For the bottom slide sensor
-
 
     public void slideTo(int tickTarget){
         for(DcMotorEx x:allSlideMotors){
             x.setTargetPosition(tickTarget);
-            x.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            x.setPower(0.5);
+            x.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            x.setPower(0.9);
         }
     }
 
@@ -399,7 +395,7 @@ public class Johnny6 {
             clawMotor.setPower(1);
     };
 
-    public void slideLow(){slideTo(0);}
+    public void slideLow(){slideTo(25);}
     public void slideMedium(){
         slideTo(1500);
     }
@@ -407,9 +403,12 @@ public class Johnny6 {
         slideTo(4000);
     }
     public void slideHang(){slideTo(3000);}
+    public void slideUpTick(){slideTo(slideMotor1.getCurrentPosition() + 100);}
+    public void slideDownTick(){slideTo(slideMotor1.getCurrentPosition() - 100);}
     public void restClip(){rotateTo(-2500);}
-    public void readyToClip(){rotateTo(3000);} //position underneth the bar so that the arm can clip
-    public void actuallyClip(){rotateTo(2500);}// position that moves the arm so that the specimen can be clipped
+    public void initClip(){rotateTo(500);}
+    public void readyToClip(){rotateTo(1500);} //position underneth the bar so that the arm can clip
+    public void actuallyClip(){rotateTo(1200);}// position that moves the arm so that the specimen can be clipped
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
@@ -439,8 +438,11 @@ public class Johnny6 {
     {
         clawMotor.setPower(speed);
     }
-        //telem.addData("claw motor position: ", clawMotor.getCurrentPosition());
-        //telem.update();
+    public void moveSlide(double speed){
+        slideMotor1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        slideMotor2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        slideMotor1.setPower(speed); slideMotor2.setPower(speed);
+    }
 
     public void moveClawMotor(double inches, double speed){
         int tickTarget = (int) Math.round(inches * Y_INCH_TICKS);

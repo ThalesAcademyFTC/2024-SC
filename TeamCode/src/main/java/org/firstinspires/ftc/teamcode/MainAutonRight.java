@@ -33,11 +33,11 @@ public class MainAutonRight extends LinearOpMode {
         sleep(rest);
         johnny7.actuallyClip();// actually clip onto the high bar because of methane
         sleep(rest);
+        johnny7.moveBackwardInches(10,speed);// move back a little bit so that we can move left
+        sleep(50);
         johnny7.clawOpen();// open claw so that we can move backward
         sleep(rest);
-        johnny7.moveBackwardInches(10,speed);// move back a little bit so that we can move left
-        sleep(rest);
-        johnny7.moveLeftInches(24,speed);//actually move left so that we can get closer to the 3 alliance specific sample
+        johnny7.moveLeftInches(27,speed);//move left so that we can get closer to the samples
         sleep(rest);
         johnny7.moveForwardInches(34,speed);// get closer to the samples
         sleep(rest);
