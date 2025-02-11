@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 public class TrebuchetTeleop extends OpMode {
     Johnny6 trebuchet6;
     boolean unLocked=false;
-    boolean rBumperPressed=false;
-    boolean rBumperProcessed=false;
+    boolean rTriggerPressed=false;
+    boolean rTriggerProcessed=false;
     boolean sensorPressed=false;
     boolean sensorNotPressed=false;
     boolean sensorProcessed=false;
@@ -73,13 +73,13 @@ public class TrebuchetTeleop extends OpMode {
 
 
         //Code for trebuchet launch
-        if(gamepad1.right_bumper){
-            rBumperPressed=true;
+        if(gamepad1.right_trigger > 0.2){
+            rTriggerPressed=true;
         }else{
-            rBumperPressed=false;
-            rBumperProcessed=false;
+            rTriggerPressed=false;
+            rTriggerProcessed=false;
         }
-        if(rBumperPressed&&!rBumperProcessed){
+        if(rTriggerPressed&&!rTriggerProcessed){
             if(unLocked){
                 trebuchet6.Locked();
                 unLocked=false;
@@ -89,7 +89,7 @@ public class TrebuchetTeleop extends OpMode {
                 unLocked=true;
                 sensorPressed=false;
             }
-            rBumperProcessed=true;
+            rTriggerProcessed=true;
         }
 
         //codings for the stupid sensor we cant figure out
