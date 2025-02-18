@@ -38,12 +38,11 @@ public class MainAutonRightClipPark extends LinearOpMode {
         sleep(rest);
         johnny7.actuallyClip();// actually clip onto the high bar because of methane
         sleep(rest);
-        johnny7.moveBackwardInches(7,speed);// move back a little bit so that we can move left
+        johnny7.moveBackwardInches(9,speed);// move back a little bit so that we can move left
         sleep(50);
         johnny7.clawOpen();// open claw so that we can move backward
         sleep(rest);
-        johnny7.turnRightDegrees(5,speed);
-        johnny7.moveBackwardInches(17,speed);
+        johnny7.moveBackwardInches(10,speed);
         sleep(rest);
         johnny7.moveLeftInches(48,speed);
         sleep(rest);

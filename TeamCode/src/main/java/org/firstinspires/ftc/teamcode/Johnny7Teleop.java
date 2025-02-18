@@ -49,7 +49,7 @@ public class Johnny7Teleop extends OpMode {
                 johnny7.slideUp();
             } else if(gamepad2.dpad_down) {
 
-                johnny7.slideDown();    
+                johnny7.slideLow();
             }
             else {
 
