@@ -377,7 +377,7 @@ public class Johnny6 {
 
 
     //This is for the claw
-    public void clawClose(){clawServo.setPosition(0.02);}
+    public void clawClose(){clawServo.setPosition(0.0);}
 
     public void clawOpen(){clawServo.setPosition(0.2);}
 
