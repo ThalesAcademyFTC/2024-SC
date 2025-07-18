@@ -147,11 +147,13 @@ public class Johnny6 {
 
 
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+                        RevHubOrientationOnRobot.LogoFacingDirection.DOWN,
+                        RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
 
                 imu.initialize(parameters);
+                resetYaw();
+
                 //initialize touch sensor
                 bottomSensor=hwMap.touchSensor.get("bottomSensor");
 
@@ -185,8 +187,8 @@ public class Johnny6 {
                 imu = hwMap.get(IMU.class, "imu");
 
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+                        RevHubOrientationOnRobot.LogoFacingDirection.DOWN,
+                        RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
 
                 imu.initialize(parameters);
 
@@ -350,7 +352,7 @@ public class Johnny6 {
     }
 
     public double getHeading() {
-        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
 
 
