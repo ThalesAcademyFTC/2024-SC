@@ -73,7 +73,7 @@ public class TrebuchetTeleop extends OpMode {
 
 
         //Code for trebuchet launch
-        if(gamepad1.right_trigger > 0.2){
+         if(gamepad1.right_trigger > 0.2){
             rTriggerPressed=true;
         }else{
             rTriggerPressed=false;
