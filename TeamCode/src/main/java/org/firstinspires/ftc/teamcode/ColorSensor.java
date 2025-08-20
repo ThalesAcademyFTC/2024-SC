@@ -62,7 +62,7 @@ public class ColorSensor extends LinearOpMode {
         VisionPortal portal = new VisionPortal.Builder()
                 .addProcessor(colorSensor)
                 .setCameraResolution(new Size(320, 240))
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                .setCamera(hardwareMap.get(WebcamName.class, "Camera Uno"))
                 .build();
 
         telemetry.setMsTransmissionInterval(50);  // Speed up telemetry updates, Just use for debugging.

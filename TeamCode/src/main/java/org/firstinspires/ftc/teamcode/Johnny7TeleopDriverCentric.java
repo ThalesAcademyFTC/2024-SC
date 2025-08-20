@@ -87,6 +87,11 @@ public class Johnny7TeleopDriverCentric extends OpMode {
                 johnny7.clawClose();
             }
 
+            //reset driver centric values
+            if(gamepad1.a){
+                johnny7.resetYaw();
+            }
+
             //This is the code for making the viper slides go up and down
 
             if(gamepad2.dpad_up) {

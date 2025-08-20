@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="Johnny7TeleopUSETHISONE")
-public class Johnny7TeleopUSETHISONE extends OpMode {
+public class Johnny7TeleopOutdated extends OpMode {
     Johnny6 johnny7;
 
     //allows driver customization
@@ -58,7 +58,7 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
                 if(gamepad2.left_trigger > 0) {
                     johnny7.moveClaw(gamepad2.left_trigger*.75);
                 } else if(gamepad2.right_trigger > 0) {
-                    johnny7.moveClaw(-gamepad2.right_trigger*.7 5);
+                    johnny7.moveClaw(-gamepad2.right_trigger*.75);
                 } else {
                     johnny7.moveClaw(0);
                 }

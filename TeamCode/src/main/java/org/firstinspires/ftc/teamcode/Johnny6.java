@@ -412,7 +412,9 @@ public class Johnny6 {
     public void restClip(){rotateTo(-2500);}
     public void initClip(){rotateTo(500);}
     public void readyToClip(){rotateTo(1500);} //position underneth the bar so that the arm can clip
-    public void actuallyClip(){rotateTo(1200);}// position that moves the arm so that the specimen can be clipped
+    public void actuallyClip(){rotateTo(1100);}// position that moves the arm so that the specimen can be clipped
+    public void resetArm(){rotateTo(0);} //put arm back to standard position in auto
+    public void readyToGrabArm(){rotateTo(2500);} //move arm down to grab samples on ground
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
     public void moveForwardInches(double inches, double speed) {
