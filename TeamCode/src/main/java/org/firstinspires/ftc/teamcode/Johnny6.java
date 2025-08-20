@@ -411,7 +411,7 @@ public class Johnny6 {
     public void actuallyClip(){rotateTo(1200);}// position that moves the arm so that the specimen can be clipped
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
-    public void moveForwardInches(double inches, double speed) {
+     public void moveForwardInches(double inches, double speed) {
 
         //Converts to integer by rounding. CASTS to int after rounding.
         int tickTarget = (int) Math.round(-inches * Y_INCH_TICKS);
