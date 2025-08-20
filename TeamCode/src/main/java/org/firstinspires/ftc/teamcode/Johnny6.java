@@ -147,11 +147,13 @@ public class Johnny6 {
 
 
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+                        RevHubOrientationOnRobot.LogoFacingDirection.DOWN,
+                        RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
 
 
                 imu.initialize(parameters);
+                resetYaw();
+
                 //initialize touch sensor
                 bottomSensor=hwMap.touchSensor.get("bottomSensor");
 
@@ -185,8 +187,8 @@ public class Johnny6 {
                 imu = hwMap.get(IMU.class, "imu");
 
                 parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
-                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+                        RevHubOrientationOnRobot.LogoFacingDirection.DOWN,
+                        RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
 
                 imu.initialize(parameters);
 
@@ -350,7 +352,7 @@ public class Johnny6 {
     }
 
     public double getHeading() {
-        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
 
 
@@ -378,6 +380,8 @@ public class Johnny6 {
 
     //This is for the claw
     public void clawClose(){clawServo.setPosition(0.0);}
+
+    public void clawBlockRotate(){clawServo.setPosition(0.05);}
 
     public void clawOpen(){clawServo.setPosition(0.2);}
 
@@ -408,7 +412,9 @@ public class Johnny6 {
     public void restClip(){rotateTo(-2500);}
     public void initClip(){rotateTo(500);}
     public void readyToClip(){rotateTo(1500);} //position underneth the bar so that the arm can clip
-    public void actuallyClip(){rotateTo(1200);}// position that moves the arm so that the specimen can be clipped
+    public void actuallyClip(){rotateTo(1100);}// position that moves the arm so that the specimen can be clipped
+    public void resetArm(){rotateTo(0);} //put arm back to standard position in auto
+    public void readyToGrabArm(){rotateTo(2500);} //move arm down to grab samples on ground
 
     public void stopBottomSlide(){slideMotor1.setPower(0);slideMotor2.setPower(0);}
      public void moveForwardInches(double inches, double speed) {

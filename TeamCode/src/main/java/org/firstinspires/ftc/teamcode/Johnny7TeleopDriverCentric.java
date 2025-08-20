@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IMU;
 
-@TeleOp(name="Johnny7TeleopUSETHISONE")
-public class Johnny7TeleopUSETHISONE extends OpMode {
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+
+@TeleOp(name="Johnny7Teleop DriverCentric")
+public class Johnny7TeleopDriverCentric extends OpMode {
     Johnny6 johnny7;
 
     //allows driver customization
@@ -12,6 +17,16 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
     boolean bottomSensorPressed = false;
     boolean slidingUp = false;
 
+    public void driveAbsolute(double up, double right, double rotateCW) {
+        // figure out direction from up and right
+        double v1 = Math.sqrt((up*up) + (right*right));
+        double theta = Math.atan2(right, up);
+        double beta = johnny7.getHeading();
+        double alpha = (Math.PI / 2) - beta - theta;
+        double x2 = Math.cos(alpha) * v1;
+        double y2 = Math.sin(alpha) * v1;
+        johnny7.move(x2, y2, rotateCW);
+    }
     @Override
     public void init(){
         johnny7=new Johnny6(this,Johnny6.Drivetrain.JOHNNY6);
@@ -52,7 +67,7 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
                 turn = turn / 3;
             }
 
-            johnny7.move(x,y,turn);
+            driveAbsolute(y,x,turn);
 
                 //Move claw arm
                 if(gamepad2.left_trigger > 0) {
@@ -70,6 +85,11 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
             }
             else if(gamepad2.b){
                 johnny7.clawClose();
+            }
+
+            //reset driver centric values
+            if(gamepad1.a){
+                johnny7.resetYaw();
             }
 
             //This is the code for making the viper slides go up and down
@@ -92,7 +112,8 @@ public class Johnny7TeleopUSETHISONE extends OpMode {
                 bottomSensorPressed=true;
                 johnny7.stopBottomSlide();
                 johnny7.resetSlideEncoders();
-            } else {
+            }
+            if(!johnny7.isBottomSensorPressed()) {
                 bottomSensorPressed=false;
             }
 
